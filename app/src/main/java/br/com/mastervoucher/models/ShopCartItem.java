@@ -9,9 +9,8 @@ public class ShopCartItem implements Serializable {
     private Product product;
     private int quantity;
 
-    public float getTotalAmount(){
-
-        Float amount = product.getFloatValue();
+    public double getTotalAmount(){
+        double amount = product.getDoubleValue();
         return amount * quantity;
     }
 

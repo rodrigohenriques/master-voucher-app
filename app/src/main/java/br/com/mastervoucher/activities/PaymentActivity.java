@@ -21,7 +21,6 @@ import org.apache.http.Header;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.models.ShopCart;
-import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.PaymentService;
 
 public class PaymentActivity extends ActionBarActivity {
@@ -44,6 +43,7 @@ public class PaymentActivity extends ActionBarActivity {
 
     private void initUI() {
         mCardEditor = (CardEditor) findViewById(R.id.card_editor);
+        mCardEditor.setAmount(shopCart.getDoubleTotalAmount());
 
         mCardEditor.setOnChargeClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class PaymentActivity extends ActionBarActivity {
                         Log.i(TAG, "Created Token: " + token.getId());
                         PaymentService paymentService = new PaymentService();
                         AsyncHttpResponseHandler responseHandler = getPaymentAsyncHttpResponseHandler();
-                        paymentService.pay(token.getId(), "500", responseHandler);
+                        paymentService.pay(token.getId(), shopCart.getTotalAmount(), responseHandler);
                     }
 
                     @Override

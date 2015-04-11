@@ -16,9 +16,9 @@ public class Product implements Serializable {
     @SerializedName("unit")
     public String unit;
 
-    public float getFloatValue(){
+    public double getDoubleValue(){
         if(value == null){
-            return 0f;
+            return 0;
         }else{
             return Float.valueOf(value)/100;
         }

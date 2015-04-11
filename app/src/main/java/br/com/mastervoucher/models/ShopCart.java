@@ -23,10 +23,18 @@ public class ShopCart implements Serializable {
     }
 
     public String getTotalAmount() {
-        Float totalAmount = 0f;
+        double totalAmount = getDoubleTotalAmount();
+        String value = String.format("%.2f", totalAmount);
+        value = value.replaceAll(".", "");
+        value = value.replaceAll(",", "");
+        return value;
+    }
+
+    public double getDoubleTotalAmount() {
+        double totalAmount = 0;
         for (ShopCartItem shopCardItem : shopCartItems) {
             totalAmount += shopCardItem.getTotalAmount();
         }
-        return String.valueOf(totalAmount);
+        return totalAmount;
     }
 }
