@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <!--Materials-->
+    <color name="primary_color">#902722</color>
+    <color name="primary_dark_color">#094A79</color>
+    <color name="accent_color">#68A4C9</color>
+
+    <color name="bg_header">#A8342E</color>
+
+    <color name="text_title">#596E79</color>
+    <color name="text_default">#777777</color>
+
+</resources>
