@@ -1,5 +1,6 @@
 package br.com.mastervoucher.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -35,6 +36,8 @@ public class MenuActivity extends BaseActivity {
     @OnClick(R.id.button_pay)
     public void paymentWithCard() {
 
+        Intent intent = new Intent(this, PaymentActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.button_masterpass)
