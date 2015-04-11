@@ -25,5 +25,9 @@ dependencies {
     compile 'io.card:android-sdk:4.0.0'
     compile 'com.google.code.gson:gson:2.2.2'
     compile 'com.jakewharton:butterknife:6.1.0'
+<<<<<<< HEAD
     compile project(':library')
+=======
+    compile 'org.roboguice:roboguice:3.0.1'
+>>>>>>> 72851943a87e50440291f1e274cd5d3ba9c9e3be
 }
