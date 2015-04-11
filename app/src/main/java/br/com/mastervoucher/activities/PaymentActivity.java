@@ -20,20 +20,25 @@ import com.simplify.android.sdk.view.CardEditor;
 import org.apache.http.Header;
 
 import br.com.mastervoucher.R;
+import br.com.mastervoucher.models.ShopCart;
+import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.PaymentService;
 
 public class PaymentActivity extends ActionBarActivity {
 
     private static final String SIMPLIFY_KEY = "sbpb_NDhiODIyZTQtNzM4OC00YmRlLTliMzEtYjBmZWE5NjA5NDVh";
+    private static final String SHOP_CART_ITEM = "SHOP_CART_ITEM";
     private static final String TAG = PaymentActivity.class.getSimpleName();
     private Simplify mSimplify;
     private CardEditor mCardEditor;
+    private ShopCart shopCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         mSimplify = new Simplify(SIMPLIFY_KEY);
+        ShopCart shopCart = (ShopCart) getIntent().getSerializableExtra(SHOP_CART_ITEM);
         initUI();
     }
 

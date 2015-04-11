@@ -14,7 +14,7 @@ public class PaymentService {
 
     public void pay(String tokenId, String amount, AsyncHttpResponseHandler responseHandler){
         RequestParams params = new RequestParams();
-        params.add("token", tokenId);
+        params.add("tokenId", tokenId);
         params.add("amount", amount );
         client.post(PAYMENT_URL, params, responseHandler);
     }
