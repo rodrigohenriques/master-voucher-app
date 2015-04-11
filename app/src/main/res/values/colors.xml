@@ -2,13 +2,15 @@
 <resources>
 
     <!--Materials-->
-    <color name="primary_color">#902722</color>
-    <color name="primary_dark_color">#094A79</color>
-    <color name="accent_color">#68A4C9</color>
+    <color name="primary_color">#9E0B0F</color>
+    <color name="primary_dark_color">#790000</color>
+    <color name="accent_color">#790000</color>
 
     <color name="bg_header">#A8342E</color>
 
     <color name="text_title">#596E79</color>
     <color name="text_default">#777777</color>
+
+    <color name="divider_default">#E5E5E5</color>
 
 </resources>
