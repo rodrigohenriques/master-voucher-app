@@ -11,16 +11,18 @@ public class Product implements Serializable {
 
     @SerializedName("name")
     public String name;
+
     @SerializedName("value")
     public String value;
+
     @SerializedName("unit")
     public String unit;
 
-    public double getDoubleValue(){
-        if(value == null){
+    public double getDoubleValue() {
+        if (value == null) {
             return 0;
-        }else{
-            return Float.valueOf(value)/100;
+        } else {
+            return Double.valueOf(value) / 100;
         }
     }
 
