@@ -1,6 +1,7 @@
 package br.com.mastervoucher.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -84,7 +85,9 @@ public class PaymentActivity extends ActionBarActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.i(TAG, "Pagou sucesso");
-                //TODO: Sucesso..
+                Intent intent = new Intent(PaymentActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
