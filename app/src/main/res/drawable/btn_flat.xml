@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- pressed state -->
+    <item android:state_pressed="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#f0f0f0" />
+            <!--<padding android:bottom="@dimen/Kronos.Button.Flat.Padding" android:left="@dimen/Kronos.Button.Flat.Padding" android:right="@dimen/Kronos.Button.Flat.Padding" android:top="@dimen/Kronos.Button.Flat.Padding" />-->
+        </shape>
+    </item>
+
+    <!-- normal state -->
+    <item android:drawable="@android:color/transparent" />
+
+</selector>
