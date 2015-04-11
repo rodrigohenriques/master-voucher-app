@@ -6,6 +6,7 @@ import android.widget.ListView;
 import br.com.mastervoucher.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by AlexandreMarones on 4/11/15.
@@ -31,5 +32,13 @@ public class MenuActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.button_pay)
+    public void paymentWithCard() {
 
+    }
+
+    @OnClick(R.id.button_masterpass)
+    public void paymentWithMasterPass() {
+
+    }
 }
