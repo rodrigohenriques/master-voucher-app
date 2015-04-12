@@ -163,6 +163,8 @@ public class MenuActivity extends BaseActivity {
 
                 JSONUtil jsonUtil = new JSONUtil();
                 event = jsonUtil.from(response.toString(), Event.class);
+                EventDAO dao = new EventDAO(MenuActivity.this);
+                dao.saveEventName(event.getName());
                 setupListViewContent();
                 progress.hide();
 
