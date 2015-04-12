@@ -19,6 +19,7 @@ import br.com.mastervoucher.models.DeliveredItem;
 import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.util.Extras;
 import br.com.mastervoucher.util.JSONUtil;
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -35,6 +36,8 @@ public class OrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        ButterKnife.inject(this);
 
         deliveryInfo = (String) getIntent().getExtras().get(Extras.DELIVERY_INFO);
 
