@@ -11,19 +11,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.mastervoucher.R;
-import br.com.mastervoucher.models.DeliveryItem;
-import br.com.mastervoucher.models.ShopCartItem;
+import br.com.mastervoucher.models.DeliveredItem;
 
 /**
  * Created by AlexandreMarones on 4/12/15.
  */
-public class OrderAdapter extends ArrayAdapter<DeliveryItem> {
+public class OrderAdapter extends ArrayAdapter<DeliveredItem> {
 
-    private List<DeliveryItem> datasource;
+    private List<DeliveredItem> datasource;
     private LayoutInflater inflater;
     private Activity ownerActivity;
 
-    public OrderAdapter(Context context, List<DeliveryItem> objects) {
+    public OrderAdapter(Context context, List<DeliveredItem> objects) {
         super(context, 0, objects);
 
         this.inflater = LayoutInflater.from(context);
@@ -34,7 +33,7 @@ public class OrderAdapter extends ArrayAdapter<DeliveryItem> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
 
-        final ShopCartItem shopCartItem = getShopCartItem(position);
+        final DeliveredItem deliveredItem = getDeliveredItem(position);
 
         int layout = R.layout.adapter_menu;
 
@@ -42,20 +41,20 @@ public class OrderAdapter extends ArrayAdapter<DeliveryItem> {
 
         TextView textAmount = (TextView) rowView
                 .findViewById(R.id.text_amount);
-        String amount = String.format("%.2f", shopCartItem.getTotalAmount());
+        String amount = String.format("%.2f", deliveredItem.getTotalAmount());
         textAmount.setText(amount);
 
         TextView textItemName = (TextView) rowView
                 .findViewById(R.id.text_name);
-        textItemName.setText(shopCartItem.product.name);
+        textItemName.setText(deliveredItem.product.name);
 
         TextView textItemUnit = (TextView) rowView
                 .findViewById(R.id.text_unit);
-        textItemUnit.setText(shopCartItem.product.unit);
+        textItemUnit.setText(deliveredItem.product.unit);
 
         TextView textItemValue = (TextView) rowView
                 .findViewById(R.id.text_name);
-        String value = String.format("R$ %.2f", shopCartItem.product.getDoubleValue());
+        String value = String.format("R$ %.2f", deliveredItem.product.getDoubleValue());
         textItemValue.setText(value);
 
         return rowView;
@@ -66,7 +65,7 @@ public class OrderAdapter extends ArrayAdapter<DeliveryItem> {
         return this.datasource.size();
     }
 
-    public ShopCartItem getShopCartItem(int position) {
+    public DeliveredItem getDeliveredItem(int position) {
         return this.datasource.get(position);
     }
 }
