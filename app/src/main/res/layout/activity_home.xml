@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textSize="16sp"
-        android:text="Utilize o leitor de QR Code\npara acessar o evento."
+        android:text="Utilize o leitor de QR Code\npara iniciar o aplicativo."
         android:textColor="@color/white" />
 
 </RelativeLayout>

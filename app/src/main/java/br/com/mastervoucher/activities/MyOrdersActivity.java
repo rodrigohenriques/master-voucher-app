@@ -53,6 +53,12 @@ public class MyOrdersActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         dao = new EventDAO(this);
         shopCartItems = new ArrayList<>();
 
@@ -146,7 +152,7 @@ public class MyOrdersActivity extends ActionBarActivity {
 
     private List<DeliveryItem> getDeliveredItems() {
         items = new ArrayList<>();
-        for(ShopCartItem shopCartItem: shopCartItems){
+        for (ShopCartItem shopCartItem : shopCartItems) {
             DeliveryItem deliveryItem = new DeliveryItem(shopCartItem);
             items.add(deliveryItem);
         }
@@ -186,10 +192,12 @@ public class MyOrdersActivity extends ActionBarActivity {
 
             JSONObject jsonObject = new JSONObject();
 
-            jsonObject.put("product_id", item.product.id);
-            jsonObject.put("quantity", item.quantityDelivered);
+            if (item.quantityDelivered > 0) {
+                jsonObject.put("product_id", item.product.id);
+                jsonObject.put("quantity", item.quantityDelivered);
 
-            jsonArray.put(jsonObject);
+                jsonArray.put(jsonObject);
+            }
         }
 
         jsonResult.put("deliveryInfo", jsonArray);

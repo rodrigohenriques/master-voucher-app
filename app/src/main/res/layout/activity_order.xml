@@ -57,7 +57,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
-            android:text="CONFIRMAR RECEBIMENTO" />
+            android:text="CONFIRMAR ENTREGA" />
 
     </RelativeLayout>
 

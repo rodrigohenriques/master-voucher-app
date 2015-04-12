@@ -38,6 +38,7 @@ public class OrderActivity extends BaseActivity {
         setContentView(R.layout.activity_order);
 
         ButterKnife.inject(this);
+        getSupportActionBar().setTitle("Pedido");
 
         deliveryInfo = (String) getIntent().getExtras().get(Extras.DELIVERY_INFO);
 
