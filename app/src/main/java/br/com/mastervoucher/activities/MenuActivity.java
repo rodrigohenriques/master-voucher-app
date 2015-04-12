@@ -81,12 +81,10 @@ public class MenuActivity extends BaseActivity {
     private List<Item> getListItens() {
 
         List<Item> result = new ArrayList<>();
-        String type = event.getProducts().get(0).type;
-
-        result.add(new Header(type));
+        String type = "";
 
         for (Product product : event.getProducts()) {
-            if (type != product.type) {
+            if (!type.equals(product.type)) {
                 type = product.type;
                 result.add(new Header(type));
             }

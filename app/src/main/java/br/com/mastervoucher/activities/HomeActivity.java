@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,9 +60,10 @@ public class HomeActivity extends BaseActivity {
                 JSONObject jsonObject = new JSONObject(jsonData);
 
                 String eventId = jsonObject.getString("eventId");
+                String appType = jsonObject.getString("appType");
                 getEvent(eventId);
             } catch (Exception e) {
-
+                Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
