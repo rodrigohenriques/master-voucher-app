@@ -10,10 +10,24 @@ import br.com.mastervoucher.models.ShopCartItem;
 
 public class ListItem implements Item {
     private ShopCartItem shopCartItem;
+    private TextView textAmount;
+    private TextView textItemName;
+    private TextView textItemUnit;
+    private TextView textItemValue;
 
     public ListItem(Product product) {
 
         this.shopCartItem = new ShopCartItem(product, 0);
+    }
+
+    public void plus() {
+        shopCartItem.addOne();
+        textAmount.setText(shopCartItem.getQuantity());
+    }
+
+    public void clear() {
+        shopCartItem.clear();
+        textAmount.setText(shopCartItem.getQuantity());
     }
 
     @Override
@@ -28,31 +42,23 @@ public class ListItem implements Item {
 
         convertView = inflater.inflate(layout, null);
 
-        TextView textAmount = (TextView) convertView
+        textAmount = (TextView) convertView
                 .findViewById(R.id.text_amount);
-        String amount = String.format("%.2f", shopCartItem.getTotalAmount());
-        textAmount.setText(amount);
+        textAmount.setText(shopCartItem.getQuantity());
 
-        TextView textItemName = (TextView) convertView
+        textItemName = (TextView) convertView
                 .findViewById(R.id.text_name);
         textItemName.setText(shopCartItem.product.name);
 
-        TextView textItemUnit = (TextView) convertView
+        textItemUnit = (TextView) convertView
                 .findViewById(R.id.text_unit);
         textItemUnit.setText(shopCartItem.product.unit);
 
-        TextView textItemValue = (TextView) convertView
+        textItemValue = (TextView) convertView
                 .findViewById(R.id.text_value);
 
         String value = String.format("R$ %.2f", shopCartItem.product.getDoubleValue());
         textItemValue.setText(value);
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         return convertView;
     }

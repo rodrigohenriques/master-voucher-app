@@ -35,4 +35,28 @@ public class MenuListAdapter extends ArrayAdapter<Item> {
     public View getView(int position, View convertView, ViewGroup parent) {
         return getItem(position).getView(mInflater, convertView);
     }
+
+    public void click(int position) {
+
+        Item item = getItem(position - 1);
+
+        if ( item instanceof ListItem ) {
+
+            ListItem listItem = (ListItem) item;
+
+            listItem.plus();
+        }
+    }
+
+    public void longClick(int position) {
+
+        Item item = getItem(position - 1);
+
+        if ( item instanceof ListItem ) {
+
+            ListItem listItem = (ListItem) item;
+
+            listItem.clear();
+        }
+    }
 }

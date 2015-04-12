@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,43 +44,54 @@ public class HomeActivity extends BaseActivity {
 
     @OnClick(R.id.button_read_qrcode)
     public void goToQrCodeActivity() {
-        Intent intent = new Intent(this, QRCodeReaderActivity.class);
-        startActivityForResult(intent, 1);
+//        Intent intent = new Intent(this, QRCodeReaderActivity.class);
+//        startActivityForResult(intent, 1);
+        getEvent("3");
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ( resultCode == RESULT_OK ) {
+        if (resultCode == RESULT_OK) {
             String jsonData = data.getStringExtra(Extras.QRCODE_RESULT);
 
             try {
-
                 JSONObject jsonObject = new JSONObject(jsonData);
 
                 String eventId = jsonObject.getString("eventId");
-
-                EventService eventService = new EventService();
-
-                eventService.getEvent(eventId, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
-
-                        Event event = gson.fromJson(response.toString(), Event.class);
-
-
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                    }
-                });
+                String appType = jsonObject.getString("appType");
+                getEvent(eventId);
             } catch (Exception e) {
-
+                Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private void getEvent(String eventId) {
+
+
+        EventService eventService = new EventService();
+
+        eventService.getEvent(eventId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+                Event event = gson.fromJson(response.toString(), Event.class);
+
+                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+
+                intent.putExtra(Extras.EVENT, event);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+
     }
 }
