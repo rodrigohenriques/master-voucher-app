@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/text_total"
             android:paddingLeft="@dimen/default_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textColor="@color/white"
-            android:text="TOTAL" />
+            android:text="TOTAL" />-->
 
         <TextView
             android:id="@+id/text_total_value"
