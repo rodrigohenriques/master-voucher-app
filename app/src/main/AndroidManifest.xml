@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.mastervoucher">
+    package="br.com.mastervoucher" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -9,26 +9,23 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.HomeActivity">
-
+        android:theme="@style/AppTheme" >
+        <activity android:name=".activities.HomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activities.PaymentActivity" />
+        <activity android:name=".activities.MenuActivity" />
+        <activity android:name=".activities.QRCodeReaderActivity" />
+        <activity android:name=".activities.MyOrdersActivity" />
         <activity
-            android:name=".activities.PaymentActivity" />
-        <activity
-            android:name=".activities.MenuActivity"/>
-        <activity
-            android:name=".activities.QRCodeReaderActivity" />
-        <activity
-            android:name=".activities.MyOrdersActivity"/>
-
+            android:name=".activities.ReceiverActivity"
+            android:label="@string/title_activity_receiver" >
+        </activity>
     </application>
 
 </manifest>
