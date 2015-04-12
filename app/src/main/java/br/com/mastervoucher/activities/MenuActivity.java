@@ -39,6 +39,8 @@ public class MenuActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ButterKnife.inject(this);
 
         event = (Event) getIntent().getSerializableExtra(Extras.EVENT);
@@ -57,7 +59,6 @@ public class MenuActivity extends BaseActivity {
         listView.addHeaderView(headerView, null, false);
 
         List<Item> items = getListItens();
-
 
         menuAdapter = new MenuListAdapter(this, items);
 
@@ -100,14 +101,14 @@ public class MenuActivity extends BaseActivity {
     @OnClick(R.id.button_buy)
     public void paymentWithCard() {
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PaymentActivity.SHOP_CART_ITEM,new ShopCart(getShopCartItems()) );
+        intent.putExtra(PaymentActivity.SHOP_CART_ITEM, new ShopCart(getShopCartItems()));
         startActivity(intent);
     }
 
     private List<ShopCartItem> getShopCartItems() {
         List<ShopCartItem> shopCartItems = new ArrayList<ShopCartItem>();
-        for(Item item:menuAdapter.getItems()){
-            if ( item instanceof ListItem ) {
+        for (Item item : menuAdapter.getItems()) {
+            if (item instanceof ListItem) {
 
                 ListItem listItem = (ListItem) item;
                 shopCartItems.add(listItem.getShopCartItem());

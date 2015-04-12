@@ -36,6 +36,8 @@ public class HomeActivity extends BaseActivity {
 
         ButterKnife.inject(this);
 
+        getSupportActionBar().hide();
+
         gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
@@ -69,7 +71,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void getEvent(String eventId) {
-
 
         EventService eventService = new EventService();
 
