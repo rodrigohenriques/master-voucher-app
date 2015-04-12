@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -16,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.dao.EventDAO;
+import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.util.Extras;
 import butterknife.ButterKnife;
@@ -35,6 +37,8 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         ButterKnife.inject(this);
+
+        getSupportActionBar().hide();
 
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageQrCodeAnim.startAnimation(pulse);

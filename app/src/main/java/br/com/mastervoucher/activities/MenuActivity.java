@@ -1,5 +1,6 @@
 package br.com.mastervoucher.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ import br.com.mastervoucher.models.Product;
 import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.EventService;
-import br.com.mastervoucher.util.Extras;
 import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
