@@ -29,7 +29,6 @@ import br.com.mastervoucher.models.Product;
 import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.EventService;
-import br.com.mastervoucher.util.Extras;
 import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -121,7 +120,7 @@ public class MenuActivity extends BaseActivity {
     @OnClick(R.id.button_buy)
     public void paymentWithCard() {
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PaymentActivity.SHOP_CART_ITEM, getShopCart());
+        intent.putExtra(PaymentActivity.SHOP_CART_ITEM,new ShopCart(getShopCartItems()) );
         startActivity(intent);
     }
 

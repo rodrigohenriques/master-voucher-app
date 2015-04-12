@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -21,9 +20,7 @@ import br.com.mastervoucher.R;
 import br.com.mastervoucher.dao.EventDAO;
 import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.service.DeliveryInfoService;
-import br.com.mastervoucher.service.EventService;
 import br.com.mastervoucher.util.Extras;
-import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -33,6 +30,7 @@ public class HomeActivity extends BaseActivity {
     @InjectView(R.id.image_qrcode_anim)
     ImageButton imageQrCodeAnim;
 
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +38,8 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         ButterKnife.inject(this);
+
+        getSupportActionBar().hide();
 
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageQrCodeAnim.startAnimation(pulse);
@@ -62,9 +62,7 @@ public class HomeActivity extends BaseActivity {
             try {
                 JSONObject jsonObject = new JSONObject(jsonData);
 
-
                 String appType = jsonObject.getString("appType");
-
 
                 if ("merchant".equals(appType)) {
                     String jsonDeliveryInfo = jsonObject.getString("deliveryInfo");
@@ -81,7 +79,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void getEvent(String eventId) {
-
         EventDAO dao = new EventDAO(this);
         dao.saveEventId(eventId);
         Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
@@ -89,8 +86,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void checkDeliveryInfo(String deliveryInfo) throws UnsupportedEncodingException {
-
-
         DeliveryInfoService deliveryInfoService = new DeliveryInfoService();
 
         deliveryInfoService.checkDeliveryInfo(this, deliveryInfo, new JsonHttpResponseHandler() {
@@ -98,7 +93,13 @@ public class HomeActivity extends BaseActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
 
+                Event event = gson.fromJson(response.toString(), Event.class);
 
+                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+
+                intent.putExtra(Extras.EVENT, event);
+
+                startActivity(intent);
             }
 
             @Override
