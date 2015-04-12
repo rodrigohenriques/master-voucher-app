@@ -22,6 +22,7 @@ import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.service.EventService;
 import br.com.mastervoucher.util.Extras;
+import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -96,13 +97,7 @@ public class HomeActivity extends BaseActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
 
-                Event event = gson.fromJson(response.toString(), Event.class);
 
-                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
-
-                intent.putExtra(Extras.EVENT, event);
-
-                startActivity(intent);
             }
 
             @Override
