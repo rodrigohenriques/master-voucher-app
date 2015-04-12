@@ -1,5 +1,6 @@
 package br.com.mastervoucher.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -49,6 +50,14 @@ public class OrderActivity extends BaseActivity {
         }
 
 //        deliveredItems = (List<DeliveredItem>) getIntent().getExtras().getSerializable(Extras.ORDER_LIST);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void setupListViewContent() {
