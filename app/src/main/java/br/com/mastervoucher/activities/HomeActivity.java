@@ -14,8 +14,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.models.Event;
+import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.service.EventService;
 import br.com.mastervoucher.util.Extras;
 import butterknife.ButterKnife;
@@ -59,9 +62,18 @@ public class HomeActivity extends BaseActivity {
             try {
                 JSONObject jsonObject = new JSONObject(jsonData);
 
-                String eventId = jsonObject.getString("eventId");
+
                 String appType = jsonObject.getString("appType");
-                getEvent(eventId);
+
+
+                if ("merchant".equals(appType)) {
+                    String jsonDeliveryInfo = jsonObject.getString("deliveryInfo");
+
+                    checkDeliveryInfo(jsonDeliveryInfo);
+                } else {
+                    String eventId = jsonObject.getString("eventId");
+                    getEvent(eventId);
+                }
             } catch (Exception e) {
                 Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -74,6 +86,33 @@ public class HomeActivity extends BaseActivity {
         EventService eventService = new EventService();
 
         eventService.getEvent(eventId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+                Event event = gson.fromJson(response.toString(), Event.class);
+
+                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+
+                intent.putExtra(Extras.EVENT, event);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+
+    }
+
+    private void checkDeliveryInfo(String deliveryInfo) throws UnsupportedEncodingException {
+
+
+        DeliveryInfoService deliveryInfoService = new DeliveryInfoService();
+
+        deliveryInfoService.checkDeliveryInfo(this, deliveryInfo, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
