@@ -2,8 +2,12 @@ package br.com.mastervoucher.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nirhart.parallaxscroll.views.ParallaxListView;
@@ -26,7 +30,7 @@ import butterknife.OnClick;
 public class MenuActivity extends BaseActivity {
 
     @InjectView(R.id.listview)
-    ParallaxListView listview;
+    ListView listView;
 
     Event event;
     public ShopCart shopCart;
@@ -44,13 +48,22 @@ public class MenuActivity extends BaseActivity {
     }
 
     private void setupListViewContent() {
-        //MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
+        View headerView = LayoutInflater.from(this).inflate(
+                R.layout.header_view_event, null);
+        ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
+        // TODO: set image and text for event name
+        TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
+        textEventName.setText("Tomorrowland 2015");
+
+        listView.addHeaderView(headerView, null, false);
 
         List<Item> items = getListItens();
 
-        MenuListAdapter adapter = new MenuListAdapter(this, items);
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
+
+//        MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
+        listView.setAdapter(menuAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();

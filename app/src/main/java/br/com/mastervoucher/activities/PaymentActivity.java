@@ -1,5 +1,6 @@
 package br.com.mastervoucher.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -32,12 +33,14 @@ public class PaymentActivity extends ActionBarActivity {
     private Simplify mSimplify;
     private CardEditor mCardEditor;
     private ShopCart shopCart;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         mSimplify = new Simplify(SIMPLIFY_KEY);
+        progress = new ProgressDialog(this);
         ShopCart shopCart = (ShopCart) getIntent().getSerializableExtra(SHOP_CART_ITEM);
         initUI();
     }
@@ -46,10 +49,15 @@ public class PaymentActivity extends ActionBarActivity {
         mCardEditor = (CardEditor) findViewById(R.id.card_editor);
         mCardEditor.setAmount(shopCart.getDoubleTotalAmount());
 
+
         mCardEditor.setOnChargeClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 hideKeyboard(view);
+                progress.setMessage("Realizando Pagamento...");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.show();
 
                 Card card = mCardEditor.getCard();
                 AsyncTask<?, ?, ?> task = mSimplify.createCardToken(card, new Simplify.CreateTokenListener() {
@@ -58,6 +66,7 @@ public class PaymentActivity extends ActionBarActivity {
                         Log.i(TAG, "Created Token: " + token.getId());
                         PaymentService paymentService = new PaymentService();
                         AsyncHttpResponseHandler responseHandler = getPaymentAsyncHttpResponseHandler();
+                        paymentService.pay(token.getId(), "500000", responseHandler);
                         paymentService.pay(token.getId(), shopCart.getTotalAmount(), responseHandler);
                     }
 
@@ -65,7 +74,7 @@ public class PaymentActivity extends ActionBarActivity {
                     public void onError(SimplifyError error) {
                         //TODO:
                         Log.e(TAG, "Error Creating Token: " + error.getMessage());
-                        mCardEditor.showErrorOverlay("Unable to retrieve card token. " + error.getMessage());
+                        //mCardEditor.showErrorOverlay("Unable to retrieve card token. " + error.getMessage());
                     }
                 });
             }
@@ -87,12 +96,14 @@ public class PaymentActivity extends ActionBarActivity {
                 Log.i(TAG, "Pagou sucesso");
                 Intent intent = new Intent(PaymentActivity.this, MenuActivity.class);
                 startActivity(intent);
+                progress.hide();
                 finish();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.e(TAG, "Pagou erro");
+                progress.hide();
                 //TODO:erro
             }
         };
