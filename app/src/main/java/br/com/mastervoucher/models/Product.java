@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by Isabel Porto on 11/04/2015.
- */
 public class Product implements Serializable {
 
     @SerializedName("name")
@@ -25,6 +22,4 @@ public class Product implements Serializable {
             return Double.valueOf(value) / 100;
         }
     }
-
-
 }

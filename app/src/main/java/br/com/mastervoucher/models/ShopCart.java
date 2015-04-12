@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Isabel Porto on 11/04/2015.
- */
 public class ShopCart implements Serializable {
     private List<ShopCartItem> shopCartItems;
 
