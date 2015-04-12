@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/simplify_grey_light"
+    android:layout_height="match_parent"
+    android:background="#FFF"
     tools:context="${packageName}.${activityClass}">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/simplify_ll_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/simplify_height_row"
@@ -35,52 +35,86 @@
             android:textAllCaps="true"
             android:textColor="@android:color/white"/>
 
-    </LinearLayout>
-
-    <!-- CARD NUMBER -->
-    <com.simplify.android.sdk.view.CardNumberEditText
-        android:id="@+id/simplify_et_cardnumber"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simplify_height_row"
-        android:layout_below="@id/simplify_ll_header"
-        android:layout_marginBottom="@dimen/simplify_spacing_row"
-        android:background="@android:color/white"
-        android:drawableLeft="@drawable/simplify_cardtype_unknown"
-        android:drawablePadding="@dimen/simplify_padding_half"
-        android:gravity="center_vertical"
-        android:hint="@string/simplify_card_number_hint"
-        android:imeOptions="actionNext"
-        android:inputType="number"
-        android:paddingLeft="@dimen/simplify_padding_half"
-        android:paddingRight="@dimen/simplify_padding_half"
-        android:textColor="@color/simplify_grey"
-        android:textColorHint="@color/simplify_grey_light"
-        android:textSize="@dimen/simplify_text_large"/>
+    </LinearLayout>-->
 
     <LinearLayout
+        android:id="@+id/simplify_cc"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número do Cartão de Crédito"
+            android:textColor="#9e0b0f"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:clickable="false"/>
+
+        <!-- CARD NUMBER -->
+        <com.simplify.android.sdk.view.CardNumberEditText
+            android:id="@+id/simplify_et_cardnumber"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/simplify_height_row"
+            android:drawableRight="@drawable/simplify_cardtype_unknown"
+            android:drawablePadding="@dimen/simplify_padding_half"
+            android:gravity="center_vertical"
+            android:hint="@string/simplify_card_number_hint"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/simplify_padding_half"
+            android:textColor="@color/simplify_grey"
+            android:textColorHint="@color/simplify_grey_light"
+            android:textSize="@dimen/simplify_text_large" />
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1A000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
         android:id="@+id/simplify_ll_expcvc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/simplify_et_cardnumber"
-        android:layout_below="@id/simplify_et_cardnumber"
-        android:layout_marginBottom="@dimen/simplify_spacing_row"
+        android:layout_below="@id/simplify_cc"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <!-- EXP -->
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/simplify_exp"
             android:layout_weight="1"
-            android:layout_marginRight="@dimen/simplify_spacing_row"
+            android:layout_width="0dp"
+            android:layout_marginRight="4dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/simplify_tv_exp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/simplify_exp"
+                android:textColor="#9e0b0f"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:clickable="false"/>
 
             <com.simplify.android.sdk.view.CardExpirationEditText
                 android:id="@+id/simplify_et_cardexpiration"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/simplify_height_row"
                 android:background="@android:color/transparent"
-                android:paddingLeft="50dp"
                 android:hint="@string/simplify_exp_hint"
                 android:imeOptions="actionNext"
                 android:inputType="number"
@@ -88,33 +122,38 @@
                 android:textColorHint="@color/simplify_grey_light"
                 android:textSize="@dimen/simplify_text_large"/>
 
-            <TextView
-                android:id="@+id/simplify_tv_exp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/simplify_padding_half"
-                android:text="@string/simplify_exp"
-                android:textColor="@color/simplify_orange"
-                android:textSize="@dimen/simplify_text_small"
-                android:textStyle="bold"
-                android:clickable="false"/>
-
-        </RelativeLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1A000000" />
+        </LinearLayout>
 
         <!-- CVC -->
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/simplify_cvc"
             android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/simplify_tv_cvc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/simplify_cvc"
+                android:textColor="#9e0b0f"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:clickable="false"/>
 
             <com.simplify.android.sdk.view.CardCvcEditText
                 android:id="@+id/simplify_et_cardcvc"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/simplify_height_row"
                 android:background="@android:color/transparent"
-                android:paddingLeft="50dp"
                 android:hint="@string/simplify_cvc_hint"
                 android:imeOptions="actionNext"
                 android:inputType="number"
@@ -122,42 +161,21 @@
                 android:textColorHint="@color/simplify_grey_light"
                 android:textSize="@dimen/simplify_text_large"/>
 
-            <TextView
-                android:id="@+id/simplify_tv_cvc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/simplify_padding_half"
-                android:text="@string/simplify_cvc"
-                android:textColor="@color/simplify_orange"
-                android:textSize="@dimen/simplify_text_small"
-                android:textStyle="bold"
-                android:clickable="false"/>
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1A000000" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Charge Button -->
-    <Button
-        android:id="@+id/simplify_btn_charge"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/simplify_height_row"
-        android:layout_below="@id/simplify_ll_expcvc"
-        android:background="@android:color/transparent"
-        android:enabled="false"
-        android:text="@string/simplify_charge_card"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/simplify_text_large"
-        android:textStyle="bold"/>
 
     <!-- Success Overlay -->
     <LinearLayout
         android:id="@+id/simplify_ll_successoverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/simplify_ll_header"
-        android:layout_alignBottom="@id/simplify_btn_charge"
         android:background="@android:color/white"
         android:gravity="center"
         android:orientation="vertical"
@@ -189,8 +207,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:layout_below="@id/simplify_ll_header"
-        android:layout_alignBottom="@id/simplify_btn_charge"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
@@ -214,5 +230,28 @@
             android:textColor="@color/simplify_grey_dark"/>
 
     </LinearLayout>
+
+    <!-- Charge Button -->
+    <RelativeLayout
+        android:id="@+id/view_qrcode"
+        android:background="#9E0B0F"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/simplify_btn_charge"
+            android:enabled="false"
+            android:text="PAGAR"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:minWidth="88dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
