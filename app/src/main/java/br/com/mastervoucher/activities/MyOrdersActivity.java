@@ -1,10 +1,12 @@
 package br.com.mastervoucher.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,11 +40,20 @@ public class MyOrdersActivity extends ActionBarActivity {
 
     private void setupListViewContent() {
         View headerView = LayoutInflater.from(this).inflate(
-                R.layout.header_view_event, null);
+                R.layout.header_view_order, null);
         ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
         // TODO: set image and text for event name
         TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
         textEventName.setText("Tomorrowland 2015");
+        ImageButton buttonNewBuy = (ImageButton) headerView.findViewById(R.id.button_new_buy);
+
+        buttonNewBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyOrdersActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
         listView.addHeaderView(headerView, null, false);
 

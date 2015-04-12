@@ -44,7 +44,7 @@ public class MenuListAdapter extends ArrayAdapter<Item> {
 
     public void click(int position) {
 
-        Item item = getItem(position-1);
+        Item item = getItem(position - 1);
 
         if ( item instanceof ListItem ) {
 
@@ -56,7 +56,7 @@ public class MenuListAdapter extends ArrayAdapter<Item> {
 
     public void longClick(int position) {
 
-        Item item = getItem(position-1);
+        Item item = getItem(position - 1);
 
         if ( item instanceof ListItem ) {
 

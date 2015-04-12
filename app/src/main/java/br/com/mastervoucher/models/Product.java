@@ -15,7 +15,7 @@ public class Product implements Serializable {
     @SerializedName("unit")
     public String unit;
 
-    @SerializedName("productType")
+    @SerializedName("type")
     public String type;
 
     public Product() {

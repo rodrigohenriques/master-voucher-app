@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="260dp">
+
+    <ImageView
+        android:id="@+id/image_event_logo"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginBottom="30dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_event" />
+
+    <TextView
+        android:id="@+id/text_event_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Tomorrowland 2015"
+        android:paddingLeft="@dimen/default_padding"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:paddingBottom="54dp" />
+
+    <ImageButton
+        android:id="@+id/button_new_buy"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:layout_marginRight="@dimen/default_padding"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_float" />
+
+</RelativeLayout>
