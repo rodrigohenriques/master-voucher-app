@@ -18,7 +18,7 @@ public class ShopCart implements Serializable {
     public String getTotalAmount() {
         double totalAmount = getDoubleTotalAmount();
         String value = String.format("%.2f", totalAmount);
-        value = value.replaceAll(".", "");
+        value = value.replaceAll("\\.", "");
         value = value.replaceAll(",", "");
         return value;
     }
