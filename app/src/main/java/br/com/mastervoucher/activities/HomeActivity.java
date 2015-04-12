@@ -11,16 +11,19 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.dao.EventDAO;
-import br.com.mastervoucher.models.Event;
+import br.com.mastervoucher.models.DeliveredItem;
 import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.util.AppType;
 import br.com.mastervoucher.util.Extras;
+import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -90,16 +93,37 @@ public class HomeActivity extends BaseActivity {
 
         deliveryInfoService.checkDeliveryInfo(this, deliveryInfo, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
 
-                Event event = gson.fromJson(response.toString(), Event.class);
+                try {
+                    int count = response.length();
 
-                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+                    if (count > 0) {
 
-                intent.putExtra(Extras.EVENT, event);
+                        ArrayList<DeliveredItem> items = new ArrayList<>();
 
-                startActivity(intent);
+                        for (int i = 0; i < count; i++) {
+
+                            String json = response.getString(i);
+                            DeliveredItem item = new JSONUtil().from(json, DeliveredItem.class);
+
+                            items.add(item);
+                        }
+
+                        Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
+
+                        intent.putExtra(Extras.ORDER_LIST, items);
+
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        Toast.makeText(HomeActivity.this, "ERRO!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
