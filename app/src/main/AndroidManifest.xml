@@ -19,12 +19,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PaymentActivity" />
-        <activity android:name=".activities.MenuActivity" />
+        <activity
+            android:name=".activities.MenuActivity"
+            android:theme="@style/AppTheme.Transparent" />
         <activity android:name=".activities.QRCodeReaderActivity" />
-        <activity android:name=".activities.MyOrdersActivity" />
+        <activity
+            android:name=".activities.MyOrdersActivity"
+            android:theme="@style/AppTheme.Transparent" />
         <activity
             android:name=".activities.ReceiverActivity"
-            android:label="@string/title_activity_receiver" >
+            android:label="@string/title_activity_receiver" />
+        <activity
+            android:name=".activities.OrderActivity"
+            android:label="@string/title_activity_order" >
         </activity>
     </application>
 
