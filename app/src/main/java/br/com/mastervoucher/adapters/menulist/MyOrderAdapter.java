@@ -99,7 +99,7 @@ public class MyOrderAdapter extends ArrayAdapter<DeliveryItem> {
     public void longClick(int position, View view) {
         DeliveryItem item = getItem(position - 1);
 
-        item.removeItem();
+        item.removeAllItems();
         reload(item, view);
     }
 }
