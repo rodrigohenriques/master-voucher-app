@@ -2,21 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="64dp">
+    android:layout_height="wrap_content"
+    android:minHeight="64dp">
 
     <TextView
         android:id="@+id/text_amount"
-        android:layout_margin="@dimen/default_padding"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/default_padding"
+        android:layout_centerVertical="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@drawable/shape_circle"
         android:gravity="center"
         android:textColor="@color/text_default"
-        android:textSize="12sp"
+        android:textSize="18sp"
         android:text="00" />
 
     <RelativeLayout
         android:layout_toRightOf="@+id/text_amount"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="72dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_default"
+                android:textSize="16sp"
                 android:text="Coca-cola" />
 
             <TextView
@@ -38,17 +44,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_default"
+                android:textSize="14sp"
                 android:text="350ml" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/text_selected_items"
-            android:paddingRight="@dimen/default_padding"
+            android:layout_marginRight="@dimen/default_padding"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/primary_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:text="01" />
 
         <View
