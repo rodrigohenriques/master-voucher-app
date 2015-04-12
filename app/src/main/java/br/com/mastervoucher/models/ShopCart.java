@@ -45,5 +45,4 @@ public class ShopCart implements Serializable {
         shopCartItems.add(item);
     }
 
-
 }
