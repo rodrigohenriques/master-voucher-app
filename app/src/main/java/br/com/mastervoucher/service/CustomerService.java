@@ -7,7 +7,7 @@ public class CustomerService {
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
-    private static final String URL_CUSTOMER = "10.0.1.56:3000/customer";
+    private static final String URL_CUSTOMER = "http://10.0.1.56:3000/customer";
     private static final String URL_CUSTOMER_ITEMS = URL_CUSTOMER + "/items";
 
     public void getItems(ResponseHandlerInterface responseHandler){

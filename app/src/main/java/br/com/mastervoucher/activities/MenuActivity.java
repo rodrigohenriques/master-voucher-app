@@ -41,7 +41,7 @@ public class MenuActivity extends BaseActivity {
     @InjectView(R.id.text_total_value)
     TextView totalAmountTextView;
 
-    Event event;
+    private Event event;
     private MenuListAdapter menuAdapter;
     private ProgressDialog progress;
 
@@ -54,7 +54,14 @@ public class MenuActivity extends BaseActivity {
 
         progress = new ProgressDialog(this);
         EventDAO dao = new EventDAO(this);
-        getEvent(dao.getEventId());
+
+        if (dao.hasEventId()) {
+            getEvent(dao.getEventId());
+        } else {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void setupListViewContent() {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,6 +19,7 @@ import br.com.mastervoucher.R;
 import br.com.mastervoucher.dao.EventDAO;
 import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.service.DeliveryInfoService;
+import br.com.mastervoucher.util.AppType;
 import br.com.mastervoucher.util.Extras;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -62,9 +62,9 @@ public class HomeActivity extends BaseActivity {
             try {
                 JSONObject jsonObject = new JSONObject(jsonData);
 
-                String appType = jsonObject.getString("appType");
+                String appType = jsonObject.getString(AppType.KEY);
 
-                if ("merchant".equals(appType)) {
+                if (AppType.MERCHANT_TYPE.equals(appType)) {
                     String jsonDeliveryInfo = jsonObject.getString("deliveryInfo");
 
                     checkDeliveryInfo(jsonDeliveryInfo);

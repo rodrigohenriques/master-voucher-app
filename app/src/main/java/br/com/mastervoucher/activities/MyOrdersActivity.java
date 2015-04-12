@@ -16,13 +16,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.MyOrderAdapter;
-import br.com.mastervoucher.models.Product;
+import br.com.mastervoucher.dao.EventDAO;
 import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.CustomerService;
@@ -36,6 +34,8 @@ public class MyOrdersActivity extends ActionBarActivity {
     @InjectView(R.id.listview)
     ListView listView;
 
+    EventDAO dao;
+
     ShopCart shopCart = new ShopCart();
 
     @Override
@@ -45,20 +45,29 @@ public class MyOrdersActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
-        CustomerService customerService = new CustomerService();
+        dao = new EventDAO(this);
 
+        if (dao.hasEventId()) {
+            getCustomerItems();
+        } else {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void getCustomerItems() {
+        CustomerService customerService = new CustomerService();
         customerService.getItems(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-
 
                 try {
                     int count = response.length();
 
                     if (count > 0) {
 
-                    } else {
                         for (int i = 0; i < count; i++) {
 
                             String json = response.getString(i);
@@ -66,9 +75,16 @@ public class MyOrdersActivity extends ActionBarActivity {
 
                             shopCart.add(item);
                         }
+
+                        setupListViewContent();
+
+                    } else {
+                        Intent intent = new Intent(MyOrdersActivity.this, MenuActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 } catch (Exception e) {
-
+                    Toast.makeText(MyOrdersActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -77,8 +93,6 @@ public class MyOrdersActivity extends ActionBarActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
-
-        setupListViewContent();
     }
 
     private void setupListViewContent() {
@@ -87,7 +101,7 @@ public class MyOrdersActivity extends ActionBarActivity {
         ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
         // TODO: set image and text for event name
         TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
-        textEventName.setText("Tomorrowland 2015");
+        textEventName.setText(dao.getEventName());
         ImageButton buttonNewBuy = (ImageButton) headerView.findViewById(R.id.button_new_buy);
 
         buttonNewBuy.setOnClickListener(new View.OnClickListener() {
@@ -100,14 +114,9 @@ public class MyOrdersActivity extends ActionBarActivity {
 
         listView.addHeaderView(headerView, null, false);
 
-        List<ShopCartItem> items = new ArrayList<ShopCartItem>();
-        items.add(new ShopCartItem(new Product("Minhas Compras"), 0));
-        items.add(new ShopCartItem(new Product("Heineken", "400ml"), 4));
-        items.add(new ShopCartItem(new Product("Pizza", "Fatia"), 2));
-        items.add(new ShopCartItem(new Product("Água", "300ml"), 2));
-
-        MyOrderAdapter menuAdapter = new MyOrderAdapter(this, items);
+        MyOrderAdapter menuAdapter = new MyOrderAdapter(this, shopCart.getShopCartItems());
         listView.setAdapter(menuAdapter);
+        listView.setDividerHeight(0);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -115,10 +124,31 @@ public class MyOrdersActivity extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                return true;
+            }
+        });
     }
 
     @OnClick(R.id.button_generate_qrcode)
     public void generateQrCode() {
         // TODO: generate qrcode and open new activity
+        try {
+            String deliveryJson = shopCart.writeDeliveryJson();
+
+            if (deliveryJson != null) {
+                Intent intent = new Intent(MyOrdersActivity.this, ReceiverActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Erro!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

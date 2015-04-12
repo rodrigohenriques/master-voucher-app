@@ -19,10 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PaymentActivity" />
-        <activity
-            android:name=".activities.MenuActivity"
-            android:theme="@style/AppTheme.Transparent" />
+        <activity android:name=".activities.MenuActivity" />
         <activity android:name=".activities.QRCodeReaderActivity" />
+        <activity android:name=".activities.MyOrdersActivity" />
         <activity
             android:name=".activities.MyOrdersActivity"
             android:theme="@style/AppTheme.Transparent" />
