@@ -14,13 +14,7 @@
 
         <activity
             android:name=".activities.HomeActivity"
-            android:label="@string/title_activity_home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_home"></activity>
 
         <activity
             android:name=".activities.PaymentActivity"
@@ -28,7 +22,13 @@
 
         <activity
             android:name=".activities.MenuActivity"
-            android:label="@string/title_activity_home"></activity>
+            android:label="@string/title_activity_home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activities.QRCodeReaderActivity"
