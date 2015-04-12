@@ -15,10 +15,15 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 import br.com.mastervoucher.R;
+import br.com.mastervoucher.dao.EventDAO;
 import br.com.mastervoucher.models.Event;
+import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.service.EventService;
 import br.com.mastervoucher.util.Extras;
+import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -28,7 +33,6 @@ public class HomeActivity extends BaseActivity {
     @InjectView(R.id.image_qrcode_anim)
     ImageButton imageQrCodeAnim;
 
-    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,6 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         ButterKnife.inject(this);
-
-        gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageQrCodeAnim.startAnimation(pulse);
@@ -60,9 +62,18 @@ public class HomeActivity extends BaseActivity {
             try {
                 JSONObject jsonObject = new JSONObject(jsonData);
 
-                String eventId = jsonObject.getString("eventId");
+
                 String appType = jsonObject.getString("appType");
-                getEvent(eventId);
+
+
+                if ("merchant".equals(appType)) {
+                    String jsonDeliveryInfo = jsonObject.getString("deliveryInfo");
+
+                    checkDeliveryInfo(jsonDeliveryInfo);
+                } else {
+                    String eventId = jsonObject.getString("eventId");
+                    getEvent(eventId);
+                }
             } catch (Exception e) {
                 Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -71,21 +82,23 @@ public class HomeActivity extends BaseActivity {
 
     private void getEvent(String eventId) {
 
+        EventDAO dao = new EventDAO(this);
+        dao.saveEventId(eventId);
+        Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+        startActivity(intent);
+    }
 
-        EventService eventService = new EventService();
+    private void checkDeliveryInfo(String deliveryInfo) throws UnsupportedEncodingException {
 
-        eventService.getEvent(eventId, new JsonHttpResponseHandler() {
+
+        DeliveryInfoService deliveryInfoService = new DeliveryInfoService();
+
+        deliveryInfoService.checkDeliveryInfo(this, deliveryInfo, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
 
-                Event event = gson.fromJson(response.toString(), Event.class);
 
-                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
-
-                intent.putExtra(Extras.EVENT, event);
-
-                startActivity(intent);
             }
 
             @Override

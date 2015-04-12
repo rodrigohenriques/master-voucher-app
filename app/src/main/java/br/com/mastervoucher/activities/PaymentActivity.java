@@ -37,7 +37,7 @@ public class PaymentActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); progress = new ProgressDialog(this);
         setContentView(R.layout.activity_payment);
         mSimplify = new Simplify(SIMPLIFY_KEY);
         progress = new ProgressDialog(this);
@@ -79,13 +79,6 @@ public class PaymentActivity extends ActionBarActivity {
             }
         });
 
-        // init reset button
-        ((Button) findViewById(R.id.btnReset)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCardEditor.reset();
-            }
-        });
     }
 
     private AsyncHttpResponseHandler getPaymentAsyncHttpResponseHandler() {
@@ -93,7 +86,7 @@ public class PaymentActivity extends ActionBarActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 Log.i(TAG, "Pagou sucesso");
-                Intent intent = new Intent(PaymentActivity.this, MenuActivity.class);
+                Intent intent = new Intent(PaymentActivity.this, MyOrdersActivity.class);
                 startActivity(intent);
                 progress.hide();
                 finish();

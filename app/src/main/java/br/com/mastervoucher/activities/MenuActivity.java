@@ -1,5 +1,6 @@
 package br.com.mastervoucher.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +23,14 @@ import br.com.mastervoucher.adapters.menulist.Header;
 import br.com.mastervoucher.adapters.menulist.Item;
 import br.com.mastervoucher.adapters.menulist.ListItem;
 import br.com.mastervoucher.adapters.menulist.MenuListAdapter;
+import br.com.mastervoucher.dao.EventDAO;
 import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.models.Product;
 import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
+import br.com.mastervoucher.service.EventService;
 import br.com.mastervoucher.util.Extras;
+import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -30,9 +39,12 @@ public class MenuActivity extends BaseActivity {
 
     @InjectView(R.id.listview)
     ListView listView;
+    @InjectView(R.id.text_total_value)
+    TextView totalAmountTextView;
 
     Event event;
     private MenuListAdapter menuAdapter;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +53,9 @@ public class MenuActivity extends BaseActivity {
 
         ButterKnife.inject(this);
 
-        event = (Event) getIntent().getSerializableExtra(Extras.EVENT);
-
-        setupListViewContent();
+        progress = new ProgressDialog(this);
+        EventDAO dao = new EventDAO(this);
+        getEvent(dao.getEventId());
     }
 
     private void setupListViewContent() {
@@ -66,6 +78,7 @@ public class MenuActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 menuAdapter.click(position);
+                atualizaTotal();
             }
         });
 
@@ -74,10 +87,18 @@ public class MenuActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 menuAdapter.longClick(position);
+                atualizaTotal();
 
                 return true;
             }
         });
+    }
+
+    private void atualizaTotal() {
+        ShopCart shopCart = getShopCart();
+
+        String value = String.format("R$ %.2f",  shopCart.getDoubleTotalAmount());
+        totalAmountTextView.setText(value);
     }
 
     private List<Item> getListItens() {
@@ -100,8 +121,13 @@ public class MenuActivity extends BaseActivity {
     @OnClick(R.id.button_buy)
     public void paymentWithCard() {
         Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PaymentActivity.SHOP_CART_ITEM,new ShopCart(getShopCartItems()) );
+        intent.putExtra(PaymentActivity.SHOP_CART_ITEM, getShopCart());
         startActivity(intent);
+    }
+
+
+    private ShopCart getShopCart() {
+        return new ShopCart(getShopCartItems());
     }
 
     private List<ShopCartItem> getShopCartItems() {
@@ -114,5 +140,38 @@ public class MenuActivity extends BaseActivity {
             }
         }
         return shopCartItems;
+    }
+
+    private void getEvent(String eventId) {
+
+
+        EventService eventService = new EventService();
+
+        progress.setMessage("Atualizando...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+        eventService.getEvent(eventId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+                JSONUtil jsonUtil = new JSONUtil();
+                event = jsonUtil.from(response.toString(), Event.class);
+                setupListViewContent();
+                progress.hide();
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(getApplicationContext(), "Erro ao buscar o evento", Toast.LENGTH_SHORT).show();
+                finish();
+
+                progress.hide();
+            }
+        });
+
     }
 }
