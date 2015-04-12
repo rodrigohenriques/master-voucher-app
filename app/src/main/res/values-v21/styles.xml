@@ -13,6 +13,7 @@
         <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
         <item name="dropDownListViewStyle">@style/PopupMenuListView</item>
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:selectableItemBackground">@drawable/btn_flat_selector</item>
     </style>
 
     <!-- OverFlow menu Styles -->
