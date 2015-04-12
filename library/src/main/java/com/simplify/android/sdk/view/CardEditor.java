@@ -36,7 +36,7 @@ public class CardEditor extends LinearLayout
     CardCvcEditText mCardCvcEditText;
 
     Button mChargeButton;
-    Button mCloseButton;
+    // Button mCloseButton;
 
     private LinearLayout mSuccessOverlay;
     private LinearLayout mErrorOverlay;
@@ -90,7 +90,7 @@ public class CardEditor extends LinearLayout
 
         // init buttons
         mChargeButton = (Button) view.findViewById(R.id.simplify_btn_charge);
-        mCloseButton = (Button) view.findViewById(R.id.simplify_btn_close);
+        // mCloseButton = (Button) view.findViewById(R.id.simplify_btn_close);
 
         mSuccessOverlay = (LinearLayout) view.findViewById(R.id.simplify_ll_successoverlay);
         mErrorOverlay = (LinearLayout) view.findViewById(R.id.simplify_ll_erroroverlay);
@@ -183,7 +183,7 @@ public class CardEditor extends LinearLayout
      */
     public void setOnCloseClickListener(OnClickListener listener)
     {
-        mCloseButton.setOnClickListener(listener);
+        //mCloseButton.setOnClickListener(listener);
     }
 
     /**
@@ -208,7 +208,7 @@ public class CardEditor extends LinearLayout
      */
     public CardEditor setCloseable(boolean show)
     {
-        mCloseButton.setVisibility(show ? View.VISIBLE : View.GONE);
+        //mCloseButton.setVisibility(show ? View.VISIBLE : View.GONE);
         return this;
     }
 
