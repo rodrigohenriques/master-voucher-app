@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,29 +12,25 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.HomeActivity"
-            android:label="@string/title_activity_home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:label="@string/title_activity_home" />
         <activity
             android:name=".activities.PaymentActivity"
             android:label="@string/title_activity_payment" />
-
         <activity
             android:name=".activities.MenuActivity"
-            android:label="@string/title_activity_home">
+            android:label="@string/title_activity_home" >
         </activity>
-
         <activity
             android:name=".activities.QRCodeReaderActivity"
             android:label="@string/title_activity_qrcode_reader" />
         <activity
             android:name=".activities.MyOrdersActivity"
             android:label="@string/title_activity_my_orders" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

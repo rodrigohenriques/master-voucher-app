@@ -18,6 +18,18 @@ public class Product implements Serializable {
     @SerializedName("productType")
     public String type;
 
+    public Product() {
+    }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
+    public Product(String name, String unit) {
+        this.name = name;
+        this.unit = unit;
+    }
+
     public double getDoubleValue() {
         if (value == null) {
             return 0;
