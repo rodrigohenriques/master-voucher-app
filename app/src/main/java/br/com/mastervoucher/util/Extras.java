@@ -5,5 +5,7 @@ package br.com.mastervoucher.util;
  */
 public class Extras {
 
-    public static String SHOP_CART = "shopcart";
+    public static final String EVENT = "event";
+    public static final String SHOP_CART = "shopcart";
+    public static final String QRCODE_RESULT = "qrcode_code";
 }
