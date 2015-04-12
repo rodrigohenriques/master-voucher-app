@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.simplify.android.sdk.Simplify;
@@ -25,7 +22,7 @@ import br.com.mastervoucher.R;
 import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.service.PaymentService;
 
-public class PaymentActivity extends ActionBarActivity {
+public class PaymentActivity extends BaseActivity {
 
     private static final String SIMPLIFY_KEY = "sbpb_NDhiODIyZTQtNzM4OC00YmRlLTliMzEtYjBmZWE5NjA5NDVh";
     public static final String SHOP_CART_ITEM = "SHOP_CART_ITEM";
@@ -39,9 +36,13 @@ public class PaymentActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); progress = new ProgressDialog(this);
         setContentView(R.layout.activity_payment);
+
         mSimplify = new Simplify(SIMPLIFY_KEY);
         progress = new ProgressDialog(this);
         shopCart = (ShopCart) getIntent().getSerializableExtra(SHOP_CART_ITEM);
+
+        getSupportActionBar().setTitle("Pagamento");
+
         initUI();
     }
 

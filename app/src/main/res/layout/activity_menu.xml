@@ -50,6 +50,7 @@
             android:textColor="@color/white"
             android:text="COMPRAR" />
 
+
     </RelativeLayout>
 
 </RelativeLayout>
