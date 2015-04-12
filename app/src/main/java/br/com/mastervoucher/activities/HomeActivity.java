@@ -43,7 +43,7 @@ public class HomeActivity extends BaseActivity {
     public void goToQrCodeActivity() {
         Intent intent = new Intent(this, QRCodeReaderActivity.class);
         startActivityForResult(intent, 1);
-       // getEvent("3");
+//        getEvent("3");
     }
 
     @Override
@@ -64,7 +64,6 @@ public class HomeActivity extends BaseActivity {
                     Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
                     intent.putExtra(Extras.DELIVERY_INFO, jsonDeliveryInfo);
                     startActivity(intent);
-                    finish();
                 } else {
                     String eventId = jsonObject.getString("eventId");
                     getEvent(eventId);

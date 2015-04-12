@@ -8,6 +8,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -64,10 +65,19 @@ public class OrderActivity extends BaseActivity {
         try {
             deliveryInfoService.delivery(this, deliveryInfo, new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
 
                     try {
+                        String status = response.getString("status");
+
+                        if ( "ok".equals(status) ) {
+                            Toast.makeText(OrderActivity.this, "Pedido entregue com suceso!", Toast.LENGTH_LONG).show();
+                            finish();
+                        } else {
+                            Toast.makeText(OrderActivity.this, "O pedido não pode ser entregue.", Toast.LENGTH_LONG).show();
+                        }
+
                     } catch (Exception e) {
                         Toast.makeText(OrderActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
