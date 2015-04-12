@@ -24,6 +24,8 @@ public class QRCodeReaderActivity extends BaseActivity implements QRCodeReaderVi
         ButterKnife.inject(this);
 
         qrCodeReaderView.setOnQRCodeReadListener(this);
+
+
     }
 
     @Override
@@ -45,5 +47,17 @@ public class QRCodeReaderActivity extends BaseActivity implements QRCodeReaderVi
     @Override
     public void QRCodeNotFoundOnCamImage() {
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        qrCodeReaderView.getCameraManager().startPreview();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        qrCodeReaderView.getCameraManager().stopPreview();
     }
 }
