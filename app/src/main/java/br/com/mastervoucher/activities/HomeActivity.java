@@ -41,9 +41,9 @@ public class HomeActivity extends BaseActivity {
 
     @OnClick(R.id.image_qrcode_anim)
     public void goToQrCodeActivity() {
-//        Intent intent = new Intent(this, QRCodeReaderActivity.class);
-//        startActivityForResult(intent, 1);
-        getEvent("3");
+        Intent intent = new Intent(this, QRCodeReaderActivity.class);
+        startActivityForResult(intent, 1);
+//        getEvent("3");
     }
 
     @Override
