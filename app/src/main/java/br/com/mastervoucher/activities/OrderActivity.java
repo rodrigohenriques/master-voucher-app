@@ -1,19 +1,14 @@
 package br.com.mastervoucher.activities;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mastervoucher.R;
-import br.com.mastervoucher.adapters.menulist.Item;
-import br.com.mastervoucher.adapters.menulist.MenuListAdapter;
+import br.com.mastervoucher.adapters.OrderAdapter;
+import br.com.mastervoucher.models.DeliveryItem;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -29,9 +24,9 @@ public class OrderActivity extends BaseActivity {
     }
 
     private void setupListViewContent() {
-        //List<Item> items = ArrayList<Item>();
-        //MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
-        //listView.setAdapter(menuAdapter);
+        List<DeliveryItem> items = new ArrayList< DeliveryItem>();
+        OrderAdapter menuAdapter = new OrderAdapter(this, items);
+        listView.setAdapter(menuAdapter);
     }
 
     @OnClick(R.id.button_confirm)
