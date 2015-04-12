@@ -2,8 +2,11 @@ package br.com.mastervoucher.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nirhart.parallaxscroll.views.ParallaxListView;
@@ -22,7 +25,7 @@ import butterknife.OnClick;
 public class MenuActivity extends BaseActivity {
 
     @InjectView(R.id.listview)
-    ParallaxListView listview;
+    ParallaxListView listView;
 
     public ShopCart shopCart;
 
@@ -39,9 +42,18 @@ public class MenuActivity extends BaseActivity {
     }
 
     private void setupListViewContent() {
+        View headerView = LayoutInflater.from(this).inflate(
+                R.layout.header_view_event, null);
+        ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
+        // TODO: set image and text for event name
+        TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
+        textEventName.setText("Tomorrowland 2015");
+
+        listView.addParallaxedHeaderView(headerView, null, false);
+
         MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
-        listview.setAdapter(menuAdapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setAdapter(menuAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
