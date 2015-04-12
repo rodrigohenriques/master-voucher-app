@@ -63,7 +63,7 @@ public class ShopCart implements Serializable {
             jsonArray.put(jsonObject);
         }
 
-        jsonResult.put("deliveryInfo", jsonArray.toString());
+        jsonResult.put("deliveryInfo", jsonArray);
 
         return jsonResult.toString();
     }
