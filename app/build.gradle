@@ -27,12 +27,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':library')
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'io.card:android-sdk:4.0.0'
-    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
+    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'// { exclude group: 'junit', module: 'junit' }
     compile 'com.google.code.gson:gson:2.2.2'
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile project(':library')
     compile 'com.loopj.android:android-async-http:1.4.5'
+    compile 'com.github.nirhart:parallaxscroll:1.0'
+//    compile 'net.glxn.qrgen:android:2.0'
 //    compile 'net.glxn.qrgen:android:2.0'
 }

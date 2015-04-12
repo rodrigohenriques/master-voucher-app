@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.nirhart.parallaxscroll.views.ParallaxListView;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.Header;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
 public class MenuActivity extends BaseActivity {
 
     @InjectView(R.id.listview)
-    ListView listview;
+    ParallaxListView listview;
 
     public ShopCart shopCart;
 
@@ -66,7 +67,7 @@ public class MenuActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.button_pay)
+    @OnClick(R.id.button_buy)
     public void paymentWithCard() {
         Intent intent = new Intent(this, PaymentActivity.class);
         startActivity(intent);
