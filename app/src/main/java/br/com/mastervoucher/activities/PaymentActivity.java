@@ -79,13 +79,6 @@ public class PaymentActivity extends ActionBarActivity {
             }
         });
 
-        // init reset button
-        ((Button) findViewById(R.id.btnReset)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCardEditor.reset();
-            }
-        });
     }
 
     private AsyncHttpResponseHandler getPaymentAsyncHttpResponseHandler() {
