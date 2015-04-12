@@ -15,6 +15,7 @@ import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.Item;
 import br.com.mastervoucher.adapters.menulist.MenuListAdapter;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class OrderActivity extends BaseActivity {
 
@@ -25,6 +26,7 @@ public class OrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+    }
 
     private void setupListViewContent() {
         List<Item> items = ArrayList<Item>();
@@ -32,6 +34,9 @@ public class OrderActivity extends BaseActivity {
         listView.setAdapter(menuAdapter);
     }
 
-
+    @OnClick(R.id.button_confirm)
+    public void confirmReceiver() {
+        // TODO: request
+    }
 
 }
