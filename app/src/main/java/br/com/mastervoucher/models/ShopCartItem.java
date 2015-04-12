@@ -14,9 +14,20 @@ public class ShopCartItem implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getQuantity() {
+        return String.valueOf(quantity);
+    }
+
     public double getTotalAmount(){
         double amount = product.getDoubleValue();
         return amount * quantity;
     }
 
+    public void addOne() {
+        quantity++;
+    }
+
+    public void clear() {
+        quantity = 0;
+    }
 }

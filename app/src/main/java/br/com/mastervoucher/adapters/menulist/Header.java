@@ -28,6 +28,13 @@ public class Header implements Item {
             view = convertView;
         }
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO invalidate click on header
+            }
+        });
+
         TextView text = (TextView) view.findViewById(R.id.separator);
         text.setText(name);
 

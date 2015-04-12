@@ -69,7 +69,11 @@ public class HomeActivity extends BaseActivity {
 
                         Event event = gson.fromJson(response.toString(), Event.class);
 
+                        Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
 
+                        intent.putExtra(Extras.EVENT, event);
+
+                        startActivity(intent);
                     }
 
                     @Override

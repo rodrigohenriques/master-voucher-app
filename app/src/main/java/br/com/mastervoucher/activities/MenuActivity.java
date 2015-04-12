@@ -8,9 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.nirhart.parallaxscroll.views.ParallaxListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,7 @@ import java.util.List;
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.Header;
 import br.com.mastervoucher.adapters.menulist.Item;
+import br.com.mastervoucher.adapters.menulist.ListItem;
 import br.com.mastervoucher.adapters.menulist.MenuListAdapter;
 import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.models.Product;
@@ -53,20 +51,29 @@ public class MenuActivity extends BaseActivity {
         ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
         // TODO: set image and text for event name
         TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
-        textEventName.setText("Tomorrowland 2015");
+        textEventName.setText(event.getName());
 
         listView.addHeaderView(headerView, null, false);
 
         List<Item> items = getListItens();
 
-        MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
+        final MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
 
-//        MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
         listView.setAdapter(menuAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
+                menuAdapter.click(position);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                menuAdapter.longClick(position);
+
+                return true;
             }
         });
     }
@@ -84,7 +91,7 @@ public class MenuActivity extends BaseActivity {
                 result.add(new Header(type));
             }
 
-//            result.add(new ListItem(product, 0));
+            result.add(new ListItem(product));
         }
 
         return result;
