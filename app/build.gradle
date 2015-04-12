@@ -36,5 +36,4 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.github.nirhart:parallaxscroll:1.0'
 //    compile 'net.glxn.qrgen:android:2.0'
-//    compile 'net.glxn.qrgen:android:2.0'
 }

@@ -72,9 +72,4 @@ public class MenuActivity extends BaseActivity {
         Intent intent = new Intent(this, PaymentActivity.class);
         startActivity(intent);
     }
-
-    @OnClick(R.id.button_masterpass)
-    public void paymentWithMasterPass() {
-
-    }
 }
