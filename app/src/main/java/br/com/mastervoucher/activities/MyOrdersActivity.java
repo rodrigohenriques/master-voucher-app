@@ -17,13 +17,19 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.MyOrderAdapter;
 import br.com.mastervoucher.dao.EventDAO;
+import br.com.mastervoucher.models.DeliveryItem;
 import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.CustomerService;
+import br.com.mastervoucher.util.AppType;
 import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,7 +42,8 @@ public class MyOrdersActivity extends ActionBarActivity {
 
     EventDAO dao;
 
-    ShopCart shopCart = new ShopCart();
+    List<ShopCartItem> shopCartItems;
+    List<DeliveryItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class MyOrdersActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         dao = new EventDAO(this);
+        shopCartItems = new ArrayList<>();
 
         if (dao.hasEventId()) {
             getCustomerItems();
@@ -73,7 +81,7 @@ public class MyOrdersActivity extends ActionBarActivity {
                             String json = response.getString(i);
                             ShopCartItem item = new JSONUtil().from(json, ShopCartItem.class);
 
-                            shopCart.add(item);
+                            shopCartItems.add(item);
                         }
 
                         setupListViewContent();
@@ -114,14 +122,14 @@ public class MyOrdersActivity extends ActionBarActivity {
 
         listView.addHeaderView(headerView, null, false);
 
-        MyOrderAdapter menuAdapter = new MyOrderAdapter(this, shopCart.getShopCartItems());
+        final MyOrderAdapter menuAdapter = new MyOrderAdapter(this, getDeliveredItems());
         listView.setAdapter(menuAdapter);
         listView.setDividerHeight(0);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
+                menuAdapter.click(position, view);
             }
         });
 
@@ -129,17 +137,27 @@ public class MyOrdersActivity extends ActionBarActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-
+                menuAdapter.longClick(position, view);
                 return true;
             }
         });
+    }
+
+    private List<DeliveryItem> getDeliveredItems() {
+        items = new ArrayList<>();
+        for(ShopCartItem shopCartItem: shopCartItems){
+            DeliveryItem deliveryItem = new DeliveryItem(shopCartItem);
+            items.add(deliveryItem);
+        }
+        return items;
+
     }
 
     @OnClick(R.id.button_generate_qrcode)
     public void generateQrCode() {
         // TODO: generate qrcode and open new activity
         try {
-            String deliveryJson = shopCart.writeDeliveryJson();
+            String deliveryJson = writeDeliveryJson();
 
             if (deliveryJson != null) {
                 Intent intent = new Intent(MyOrdersActivity.this, ReceiverActivity.class);
@@ -151,4 +169,29 @@ public class MyOrdersActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    public String writeDeliveryJson() throws JSONException {
+
+        JSONObject jsonResult = new JSONObject();
+
+        jsonResult.put(AppType.KEY, AppType.MERCHANT_TYPE);
+
+        JSONArray jsonArray = new JSONArray();
+
+        for (DeliveryItem item : items) {
+
+            JSONObject jsonObject = new JSONObject();
+
+            jsonObject.put("product_id", item.product.id);
+            jsonObject.put("quantity", item.quantityDelivered);
+
+            jsonArray.put(jsonObject);
+        }
+
+        jsonResult.put("deliveryInfo", jsonArray.toString());
+
+        return jsonResult.toString();
+    }
+
+
 }

@@ -86,10 +86,11 @@ public class PaymentActivity extends BaseActivity {
         return new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                progress.hide();
                 Log.i(TAG, "Pagou sucesso");
                 Intent intent = new Intent(PaymentActivity.this, MyOrdersActivity.class);
                 startActivity(intent);
-                progress.hide();
+
                 finish();
             }
 

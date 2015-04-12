@@ -11,7 +11,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.HomeActivity"/>
+            android:name=".activities.HomeActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
 
         <activity
             android:name=".activities.PaymentActivity" />
@@ -21,11 +28,7 @@
             android:name=".activities.QRCodeReaderActivity" />
         <activity
             android:name=".activities.MyOrdersActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.ReceiverActivity"

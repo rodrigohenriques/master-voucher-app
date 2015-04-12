@@ -45,26 +45,5 @@ public class ShopCart implements Serializable {
         shopCartItems.add(item);
     }
 
-    public String writeDeliveryJson() throws JSONException {
 
-        JSONObject jsonResult = new JSONObject();
-
-        jsonResult.put(AppType.KEY, AppType.MERCHANT_TYPE);
-
-        JSONArray jsonArray = new JSONArray();
-
-        for (ShopCartItem item : shopCartItems) {
-
-            JSONObject jsonObject = new JSONObject();
-
-            jsonObject.put("product_id", item.product.id);
-            jsonObject.put("quantity", item.quantity);
-
-            jsonArray.put(jsonObject);
-        }
-
-        jsonResult.put("deliveryInfo", jsonArray.toString());
-
-        return jsonResult.toString();
-    }
 }
