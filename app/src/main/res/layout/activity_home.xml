@@ -1,12 +1,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color"
     tools:context="br.com.mastervoucher.activities.HomeActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_above="@+id/image_qrcode_logo"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/image_qrcode_logo"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_qrcode" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/image_qrcode_logo"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Utilize o leitor de QR Code\npara acessar o evento."
+        android:textColor="@color/white" />
 
 </RelativeLayout>
