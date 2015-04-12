@@ -41,7 +41,7 @@ public class OrderAdapter extends ArrayAdapter<DeliveredItem> {
 
         TextView textAmount = (TextView) rowView
                 .findViewById(R.id.text_amount);
-        String amount = String.format("%.2f", deliveredItem.getTotalAmount());
+        String amount = String.valueOf(deliveredItem.getQuantity());
         textAmount.setText(amount);
 
         TextView textItemName = (TextView) rowView
@@ -53,7 +53,7 @@ public class OrderAdapter extends ArrayAdapter<DeliveredItem> {
         textItemUnit.setText(deliveredItem.product.unit);
 
         TextView textItemValue = (TextView) rowView
-                .findViewById(R.id.text_name);
+                .findViewById(R.id.text_value);
         String value = String.format("R$ %.2f", deliveredItem.product.getDoubleValue());
         textItemValue.setText(value);
 

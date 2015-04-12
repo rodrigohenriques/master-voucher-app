@@ -38,6 +38,7 @@ public class OrderActivity extends BaseActivity {
         setContentView(R.layout.activity_order);
 
         ButterKnife.inject(this);
+        getSupportActionBar().setTitle("Pedido");
 
         deliveryInfo = (String) getIntent().getExtras().get(Extras.DELIVERY_INFO);
 
@@ -47,7 +48,7 @@ public class OrderActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        deliveredItems = (List<DeliveredItem>) getIntent().getExtras().getSerializable(Extras.ORDER_LIST);
+//        deliveredItems = (List<DeliveredItem>) getIntent().getExtras().getSerializable(Extras.ORDER_LIST);
     }
 
     private void setupListViewContent() {
@@ -106,6 +107,8 @@ public class OrderActivity extends BaseActivity {
                         }
 
                         deliveredItems = items;
+
+                        setupListViewContent();
 
                     } else {
                         Toast.makeText(OrderActivity.this, "ERRO!", Toast.LENGTH_SHORT).show();

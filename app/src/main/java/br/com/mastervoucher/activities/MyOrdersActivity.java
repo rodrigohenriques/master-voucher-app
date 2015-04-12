@@ -46,6 +46,8 @@ public class MyOrdersActivity extends ActionBarActivity {
     List<ShopCartItem> shopCartItems;
     List<DeliveryItem> items;
 
+    boolean hasHeader = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,12 @@ public class MyOrdersActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         dao = new EventDAO(this);
         shopCartItems = new ArrayList<>();
 
@@ -105,23 +113,26 @@ public class MyOrdersActivity extends ActionBarActivity {
     }
 
     private void setupListViewContent() {
-        View headerView = LayoutInflater.from(this).inflate(
-                R.layout.header_view_order, null);
-        ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
-        // TODO: set image and text for event name
-        TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
-        textEventName.setText(dao.getEventName());
-        ImageButton buttonNewBuy = (ImageButton) headerView.findViewById(R.id.button_new_buy);
+        if(!hasHeader) {
+            View headerView = LayoutInflater.from(this).inflate(
+                    R.layout.header_view_order, null);
+            ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
+            // TODO: set image and text for event name
+            TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
+            textEventName.setText(dao.getEventName());
+            ImageButton buttonNewBuy = (ImageButton) headerView.findViewById(R.id.button_new_buy);
 
-        buttonNewBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyOrdersActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-        });
+            buttonNewBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MyOrdersActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                }
+            });
 
-        listView.addHeaderView(headerView, null, false);
+            listView.addHeaderView(headerView, null, false);
+            hasHeader = true;
+        }
 
         final MyOrderAdapter menuAdapter = new MyOrderAdapter(this, getDeliveredItems());
         listView.setAdapter(menuAdapter);
@@ -146,7 +157,7 @@ public class MyOrdersActivity extends ActionBarActivity {
 
     private List<DeliveryItem> getDeliveredItems() {
         items = new ArrayList<>();
-        for(ShopCartItem shopCartItem: shopCartItems){
+        for (ShopCartItem shopCartItem : shopCartItems) {
             DeliveryItem deliveryItem = new DeliveryItem(shopCartItem);
             items.add(deliveryItem);
         }
@@ -186,10 +197,12 @@ public class MyOrdersActivity extends ActionBarActivity {
 
             JSONObject jsonObject = new JSONObject();
 
-            jsonObject.put("product_id", item.product.id);
-            jsonObject.put("quantity", item.quantityDelivered);
+            if (item.quantityDelivered > 0) {
+                jsonObject.put("product_id", item.product.id);
+                jsonObject.put("quantity", item.quantityDelivered);
 
-            jsonArray.put(jsonObject);
+                jsonArray.put(jsonObject);
+            }
         }
 
         jsonResult.put("deliveryInfo", jsonArray);
