@@ -12,6 +12,7 @@
 
     <color name="text_title">#596E79</color>
     <color name="text_default">#777777</color>
+    <color name="text_section_listview">#596E79</color>
 
     <color name="divider_default">#E5E5E5</color>
 

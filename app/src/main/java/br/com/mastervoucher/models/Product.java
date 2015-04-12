@@ -15,6 +15,13 @@ public class Product implements Serializable {
     @SerializedName("unit")
     public String unit;
 
+    public Product() {
+    }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
     public double getDoubleValue() {
         if (value == null) {
             return 0;

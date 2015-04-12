@@ -19,11 +19,6 @@
         <activity
             android:name=".activities.MenuActivity"
             android:label="@string/title_activity_home" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.QRCodeReaderActivity"
@@ -31,6 +26,11 @@
         <activity
             android:name=".activities.MyOrdersActivity"
             android:label="@string/title_activity_my_orders" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
