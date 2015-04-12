@@ -30,6 +30,10 @@ public class ListItem implements Item {
         textAmount.setText(shopCartItem.getQuantity());
     }
 
+    public ShopCartItem getShopCartItem() {
+        return shopCartItem;
+    }
+
     @Override
     public int getViewType() {
         return MenuListAdapter.RowType.LIST_ITEM.ordinal();

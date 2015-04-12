@@ -7,12 +7,8 @@ import java.util.List;
 public class ShopCart implements Serializable {
     private List<ShopCartItem> shopCartItems;
 
-    public ShopCart() {
-        this.shopCartItems = new ArrayList<>();
-    }
-
-    public void addShopCardItem(ShopCartItem shopCartItem) {
-        shopCartItems.add(shopCartItem);
+    public ShopCart( List<ShopCartItem> shopCartItems) {
+        this.shopCartItems = shopCartItems;
     }
 
     public List<ShopCartItem> getShopCartItems() {
@@ -22,7 +18,7 @@ public class ShopCart implements Serializable {
     public String getTotalAmount() {
         double totalAmount = getDoubleTotalAmount();
         String value = String.format("%.2f", totalAmount);
-        value = value.replaceAll(".", "");
+        value = value.replaceAll("\\.", "");
         value = value.replaceAll(",", "");
         return value;
     }
