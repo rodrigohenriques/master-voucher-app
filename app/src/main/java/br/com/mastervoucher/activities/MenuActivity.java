@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,15 +66,12 @@ public class MenuActivity extends BaseActivity {
     private void setupListViewContent() {
         View headerView = LayoutInflater.from(this).inflate(
                 R.layout.header_view_event, null);
-        ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
-        // TODO: set image and text for event name
         TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
         textEventName.setText(event.getName());
 
         listView.addHeaderView(headerView, null, false);
 
         List<Item> items = getListItens();
-
 
         menuAdapter = new MenuListAdapter(this, items);
 
