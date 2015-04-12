@@ -29,9 +29,9 @@ public class OrderActivity extends BaseActivity {
     }
 
     private void setupListViewContent() {
-        List<Item> items = ArrayList<Item>();
-        MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
-        listView.setAdapter(menuAdapter);
+        //List<Item> items = ArrayList<Item>();
+        //MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
+        //listView.setAdapter(menuAdapter);
     }
 
     @OnClick(R.id.button_confirm)

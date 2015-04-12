@@ -20,11 +20,9 @@ public class DeliveryItem extends ShopCartItem {
         }
     }
 
-    public void removeItem(){
-        if(quantityDelivered>0) {
-            quantityDelivered--;
-            quantity++;
-        }
+    public void removeAllItems(){
+        quantity = quantity + quantityDelivered;
+        quantityDelivered = 0;
     }
 
 }
