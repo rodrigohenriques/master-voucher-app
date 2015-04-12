@@ -10,17 +10,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nirhart.parallaxscroll.views.ParallaxListView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.Header;
 import br.com.mastervoucher.adapters.menulist.Item;
-import br.com.mastervoucher.adapters.menulist.ListItem;
 import br.com.mastervoucher.adapters.menulist.MenuListAdapter;
+import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.models.Product;
 import br.com.mastervoucher.models.ShopCart;
-import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.util.Extras;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,6 +32,7 @@ public class MenuActivity extends BaseActivity {
     @InjectView(R.id.listview)
     ListView listView;
 
+    Event event;
     public ShopCart shopCart;
 
     @Override
@@ -40,7 +42,7 @@ public class MenuActivity extends BaseActivity {
 
         ButterKnife.inject(this);
 
-        shopCart = (ShopCart) getIntent().getSerializableExtra(Extras.SHOP_CART);
+        event = (Event) getIntent().getSerializableExtra(Extras.EVENT);
 
         setupListViewContent();
     }
@@ -55,16 +57,7 @@ public class MenuActivity extends BaseActivity {
 
         listView.addHeaderView(headerView, null, false);
 
-        List<Item> items = new ArrayList<Item>();
-        items.add(new Header("Header 1"));
-        items.add(new ListItem(new ShopCartItem(new Product(), 5)));
-        items.add(new ListItem(new ShopCartItem(new Product(), 11)));
-        items.add(new Header("Header 2"));
-        items.add(new ListItem(new ShopCartItem(new Product(), 2)));
-        items.add(new ListItem(new ShopCartItem(new Product(), 3)));
-        items.add(new ListItem(new ShopCartItem(new Product(), 12)));
-        items.add(new ListItem(new ShopCartItem(new Product(), 5)));
-        items.add(new ListItem(new ShopCartItem(new Product(), 8)));
+        List<Item> items = getListItens();
 
         MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
 
@@ -76,6 +69,25 @@ public class MenuActivity extends BaseActivity {
                 Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private List<Item> getListItens() {
+
+        List<Item> result = new ArrayList<>();
+        String type = event.getProducts().get(0).type;
+
+        result.add(new Header(type));
+
+        for (Product product : event.getProducts()) {
+            if (type != product.type) {
+                type = product.type;
+                result.add(new Header(type));
+            }
+
+//            result.add(new ListItem(product, 0));
+        }
+
+        return result;
     }
 
     @OnClick(R.id.button_buy)

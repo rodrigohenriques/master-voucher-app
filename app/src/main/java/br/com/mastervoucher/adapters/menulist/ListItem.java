@@ -5,14 +5,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import br.com.mastervoucher.R;
+import br.com.mastervoucher.models.Product;
 import br.com.mastervoucher.models.ShopCartItem;
 
 public class ListItem implements Item {
     private ShopCartItem shopCartItem;
 
-    public ListItem(ShopCartItem shopCartItem) {
+    public ListItem(Product product) {
 
-        this.shopCartItem = shopCartItem;
+        this.shopCartItem = new ShopCartItem(product, 0);
     }
 
     @Override
@@ -45,6 +46,13 @@ public class ListItem implements Item {
 
         String value = String.format("R$ %.2f", shopCartItem.product.getDoubleValue());
         textItemValue.setText(value);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return convertView;
     }

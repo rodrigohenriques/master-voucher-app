@@ -7,12 +7,11 @@ import android.os.Bundle;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
 import br.com.mastervoucher.R;
+import br.com.mastervoucher.util.Extras;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class QRCodeReaderActivity extends BaseActivity implements QRCodeReaderView.OnQRCodeReadListener {
-
-    public static final String RESULT_QRCODE_INFO = "qrcode_info";
 
     @InjectView(R.id.qrdecoderview)
     QRCodeReaderView qrCodeReaderView;
@@ -31,7 +30,7 @@ public class QRCodeReaderActivity extends BaseActivity implements QRCodeReaderVi
     public void onQRCodeRead(String s, PointF[] pointFs) {
         Intent data = new Intent();
 
-        data.putExtra(RESULT_QRCODE_INFO, s);
+        data.putExtra(Extras.QRCODE_RESULT, s);
 
         setResult(RESULT_OK, data);
 
