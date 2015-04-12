@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import br.com.mastervoucher.R;
+import br.com.mastervoucher.dao.EventDAO;
 import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.service.EventService;
@@ -30,7 +31,6 @@ public class HomeActivity extends BaseActivity {
     @InjectView(R.id.image_qrcode_anim)
     ImageView imageQrCodeAnim;
 
-    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,6 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         ButterKnife.inject(this);
-
-        gson = new GsonBuilder().disableHtmlEscaping().create();
 
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageQrCodeAnim.startAnimation(pulse);
@@ -82,29 +80,10 @@ public class HomeActivity extends BaseActivity {
 
     private void getEvent(String eventId) {
 
-
-        EventService eventService = new EventService();
-
-        eventService.getEvent(eventId, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-
-                Event event = gson.fromJson(response.toString(), Event.class);
-
-                Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
-
-                intent.putExtra(Extras.EVENT, event);
-
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
-
+        EventDAO dao = new EventDAO(this);
+        dao.saveEventId(eventId);
+        Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 
     private void checkDeliveryInfo(String deliveryInfo) throws UnsupportedEncodingException {

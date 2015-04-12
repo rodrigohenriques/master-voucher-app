@@ -18,6 +18,9 @@ public class Product implements Serializable {
     @SerializedName("type")
     public String type;
 
+    @SerializedName("id")
+    public String id;
+
     public Product() {
     }
 
