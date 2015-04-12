@@ -17,55 +17,48 @@
         android:textSize="18sp"
         android:text="00" />
 
-    <RelativeLayout
-        android:layout_toRightOf="@+id/text_amount"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="72dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_default"
-                android:textSize="16sp"
-                android:text="Coca-cola" />
-
-            <TextView
-                android:id="@+id/text_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_default"
-                android:textSize="14sp"
-                android:text="350ml" />
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/text_amount"
+        android:layout_marginLeft="12dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_selected_items"
-            android:layout_marginRight="@dimen/default_padding"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
+            android:id="@+id/text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primary_color"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="01" />
+            android:textColor="@color/text_default"
+            android:textSize="16sp"
+            android:text="Coca-cola" />
 
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider_default" />
+        <TextView
+            android:id="@+id/text_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_default"
+            android:textSize="14sp"
+            android:text="350ml" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/text_selected_items"
+        android:layout_marginRight="@dimen/default_padding"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_color"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="01" />
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="68dp"
+        android:background="@color/divider_default" />
 
 </RelativeLayout>
