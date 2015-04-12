@@ -8,22 +8,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.dao.EventDAO;
-import br.com.mastervoucher.models.DeliveredItem;
-import br.com.mastervoucher.service.DeliveryInfoService;
 import br.com.mastervoucher.util.AppType;
 import br.com.mastervoucher.util.Extras;
-import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -70,7 +61,10 @@ public class HomeActivity extends BaseActivity {
                 if (AppType.MERCHANT_TYPE.equals(appType)) {
                     String jsonDeliveryInfo = jsonObject.getString("deliveryInfo");
 
-                    checkDeliveryInfo(jsonDeliveryInfo);
+                    Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
+                    intent.putExtra(Extras.DELIVERY_INFO, jsonDeliveryInfo);
+                    startActivity(intent);
+                    finish();
                 } else {
                     String eventId = jsonObject.getString("eventId");
                     getEvent(eventId);
@@ -86,51 +80,5 @@ public class HomeActivity extends BaseActivity {
         dao.saveEventId(eventId);
         Intent intent = new Intent(HomeActivity.this, MenuActivity.class);
         startActivity(intent);
-    }
-
-    private void checkDeliveryInfo(String deliveryInfo) throws UnsupportedEncodingException {
-        DeliveryInfoService deliveryInfoService = new DeliveryInfoService();
-
-        deliveryInfoService.checkDeliveryInfo(this, deliveryInfo, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-
-                try {
-                    int count = response.length();
-
-                    if (count > 0) {
-
-                        ArrayList<DeliveredItem> items = new ArrayList<>();
-
-                        for (int i = 0; i < count; i++) {
-
-                            String json = response.getString(i);
-                            DeliveredItem item = new JSONUtil().from(json, DeliveredItem.class);
-
-                            items.add(item);
-                        }
-
-                        Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
-
-                        intent.putExtra(Extras.ORDER_LIST, items);
-
-                        startActivity(intent);
-                        finish();
-
-                    } else {
-                        Toast.makeText(HomeActivity.this, "ERRO!", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
-
     }
 }
