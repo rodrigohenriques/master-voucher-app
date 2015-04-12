@@ -56,26 +56,30 @@ public class OrderActivity extends BaseActivity {
     }
 
     @OnClick(R.id.button_confirm)
-    public void confirmReceiver() throws UnsupportedEncodingException {
+    public void confirmReceiver() {
         // TODO: request
         DeliveryInfoService deliveryInfoService = new DeliveryInfoService();
 
-        deliveryInfoService.delivery(this, deliveryInfo, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
+        try {
+            deliveryInfoService.delivery(this, deliveryInfo, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                    super.onSuccess(statusCode, headers, response);
 
-                try {
-                } catch (Exception e) {
-                    Toast.makeText(OrderActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    try {
+                    } catch (Exception e) {
+                        Toast.makeText(OrderActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(OrderActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkDeliveryInfo(String deliveryInfo) throws UnsupportedEncodingException {

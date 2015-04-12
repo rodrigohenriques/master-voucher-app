@@ -30,6 +30,7 @@ import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.service.CustomerService;
 import br.com.mastervoucher.util.AppType;
+import br.com.mastervoucher.util.Extras;
 import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -161,6 +162,9 @@ public class MyOrdersActivity extends ActionBarActivity {
 
             if (deliveryJson != null) {
                 Intent intent = new Intent(MyOrdersActivity.this, ReceiverActivity.class);
+
+                intent.putExtra(Extras.QRCODE_DATA, deliveryJson);
+
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Erro!", Toast.LENGTH_SHORT).show();
