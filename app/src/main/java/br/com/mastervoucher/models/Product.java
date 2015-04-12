@@ -25,6 +25,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    public Product(String name, String unit) {
+        this.name = name;
+        this.unit = unit;
+    }
+
     public double getDoubleValue() {
         if (value == null) {
             return 0;

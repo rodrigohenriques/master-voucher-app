@@ -47,10 +47,10 @@ public class MyOrdersActivity extends ActionBarActivity {
         listView.addHeaderView(headerView, null, false);
 
         List<ShopCartItem> items = new ArrayList<ShopCartItem>();
-        items.add(new ShopCartItem(new Product("Minhas Compras"), 5));
-        items.add(new ShopCartItem(new Product(), 5));
-        items.add(new ShopCartItem(new Product(), 11));
-        items.add(new ShopCartItem(new Product(), 8));
+        items.add(new ShopCartItem(new Product("Minhas Compras"), 0));
+        items.add(new ShopCartItem(new Product("Heineken", "400ml"), 4));
+        items.add(new ShopCartItem(new Product("Pizza", "Fatia"), 2));
+        items.add(new ShopCartItem(new Product("Água", "300ml"), 2));
 
         MyOrderAdapter menuAdapter = new MyOrderAdapter(this, items);
         listView.setAdapter(menuAdapter);

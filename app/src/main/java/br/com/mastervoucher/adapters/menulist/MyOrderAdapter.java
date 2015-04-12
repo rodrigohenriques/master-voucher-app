@@ -39,11 +39,6 @@ public class MyOrderAdapter extends ArrayAdapter<ShopCartItem> {
         rowView = inflater.inflate(layout, parent, false);
 
         if (product.unit != null && product.unit.length() > 0) {
-            TextView textAmount = (TextView) rowView
-                    .findViewById(R.id.text_amount);
-            String amount = String.format("%.2f", shopCartItem.getTotalAmount());
-            textAmount.setText(amount);
-
             TextView textItemName = (TextView) rowView
                     .findViewById(R.id.text_name);
             textItemName.setText(shopCartItem.product.name);
@@ -53,9 +48,9 @@ public class MyOrderAdapter extends ArrayAdapter<ShopCartItem> {
             textItemUnit.setText(shopCartItem.product.unit);
 
             TextView textItemValue = (TextView) rowView
-                    .findViewById(R.id.text_name);
-            String value = String.format("R$ %.2f", shopCartItem.product.getDoubleValue());
-            textItemValue.setText(value);
+                    .findViewById(R.id.text_amount);
+            String amount = String.valueOf(shopCartItem.quantity);
+            textItemValue.setText(amount);
         } else {
             TextView textTitle = (TextView) rowView
                     .findViewById(R.id.text_title);
