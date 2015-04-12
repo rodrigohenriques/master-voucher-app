@@ -8,7 +8,8 @@ import java.util.List;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.OrderAdapter;
-import br.com.mastervoucher.models.DeliveryItem;
+import br.com.mastervoucher.models.DeliveredItem;
+import br.com.mastervoucher.util.Extras;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -17,15 +18,18 @@ public class OrderActivity extends BaseActivity {
     @InjectView(R.id.listview)
     ListView listView;
 
+    List<DeliveredItem> deliveredItems = new ArrayList<DeliveredItem>();;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        deliveredItems = (List<DeliveredItem>) getIntent().getExtras().getSerializable(Extras.ORDER_LIST);
     }
 
     private void setupListViewContent() {
-        List<DeliveryItem> items = new ArrayList< DeliveryItem>();
-        OrderAdapter menuAdapter = new OrderAdapter(this, items);
+        OrderAdapter menuAdapter = new OrderAdapter(this, deliveredItems);
         listView.setAdapter(menuAdapter);
     }
 
