@@ -1,11 +1,14 @@
 package br.com.mastervoucher.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShopCart implements Serializable {
     private List<ShopCartItem> shopCartItems;
+
+    public ShopCart() {
+
+    }
 
     public ShopCart( List<ShopCartItem> shopCartItems) {
         this.shopCartItems = shopCartItems;
@@ -29,5 +32,9 @@ public class ShopCart implements Serializable {
             totalAmount += shopCardItem.getTotalAmount();
         }
         return totalAmount;
+    }
+
+    public void add(ShopCartItem item) {
+        shopCartItems.add(item);
     }
 }

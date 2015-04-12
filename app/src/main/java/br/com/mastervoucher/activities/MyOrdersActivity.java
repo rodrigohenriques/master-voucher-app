@@ -12,13 +12,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.MyOrderAdapter;
 import br.com.mastervoucher.models.Product;
+import br.com.mastervoucher.models.ShopCart;
 import br.com.mastervoucher.models.ShopCartItem;
+import br.com.mastervoucher.service.CustomerService;
+import br.com.mastervoucher.util.JSONUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -28,12 +36,47 @@ public class MyOrdersActivity extends ActionBarActivity {
     @InjectView(R.id.listview)
     ListView listView;
 
+    ShopCart shopCart = new ShopCart();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
 
         ButterKnife.inject(this);
+
+        CustomerService customerService = new CustomerService();
+
+        customerService.getItems(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+
+
+                try {
+                    int count = response.length();
+
+                    if (count > 0) {
+
+                    } else {
+                        for (int i = 0; i < count; i++) {
+
+                            String json = response.getString(i);
+                            ShopCartItem item = new JSONUtil().from(json, ShopCartItem.class);
+
+                            shopCart.add(item);
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
 
         setupListViewContent();
     }
