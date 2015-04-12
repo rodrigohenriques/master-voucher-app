@@ -66,8 +66,7 @@ public class PaymentActivity extends ActionBarActivity {
                         Log.i(TAG, "Created Token: " + token.getId());
                         PaymentService paymentService = new PaymentService();
                         AsyncHttpResponseHandler responseHandler = getPaymentAsyncHttpResponseHandler();
-                        paymentService.pay(token.getId(), "500000", responseHandler);
-                        paymentService.pay(token.getId(), shopCart.getTotalAmount(), responseHandler);
+                        paymentService.pay(token.getId(), shopCart.getTotalAmount(), shopCart.getShopCartItems(), responseHandler);
                     }
 
                     @Override
