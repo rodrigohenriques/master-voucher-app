@@ -6,20 +6,13 @@
     android:orientation="vertical"
     tools:context="${packageName}.${activityClass}">
 
-    <include layout="@layout/toolbar" />
-
     <com.simplify.android.sdk.view.CardEditor
         android:id="@+id/card_editor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         simplify:closeable="false"
-        simplify:themeColor="@color/simplify_orange"
+        simplify:themeColor="?attr/colorPrimary"
         android:layout_marginBottom="50dp" />
 
-    <Button
-        android:id="@+id/btnReset"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Reset" />
 
 </LinearLayout>
