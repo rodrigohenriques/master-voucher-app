@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import butterknife.OnClick;
 public class HomeActivity extends BaseActivity {
 
     @InjectView(R.id.image_qrcode_anim)
-    ImageView imageQrCodeAnim;
+    ImageButton imageQrCodeAnim;
 
     Gson gson;
 
@@ -42,7 +43,7 @@ public class HomeActivity extends BaseActivity {
         imageQrCodeAnim.startAnimation(pulse);
     }
 
-    @OnClick(R.id.button_read_qrcode)
+    @OnClick(R.id.image_qrcode_anim)
     public void goToQrCodeActivity() {
 //        Intent intent = new Intent(this, QRCodeReaderActivity.class);
 //        startActivityForResult(intent, 1);
