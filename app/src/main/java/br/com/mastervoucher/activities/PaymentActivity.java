@@ -28,7 +28,7 @@ import br.com.mastervoucher.service.PaymentService;
 public class PaymentActivity extends ActionBarActivity {
 
     private static final String SIMPLIFY_KEY = "sbpb_NDhiODIyZTQtNzM4OC00YmRlLTliMzEtYjBmZWE5NjA5NDVh";
-    private static final String SHOP_CART_ITEM = "SHOP_CART_ITEM";
+    public static final String SHOP_CART_ITEM = "SHOP_CART_ITEM";
     private static final String TAG = PaymentActivity.class.getSimpleName();
     private Simplify mSimplify;
     private CardEditor mCardEditor;
@@ -41,7 +41,7 @@ public class PaymentActivity extends ActionBarActivity {
         setContentView(R.layout.activity_payment);
         mSimplify = new Simplify(SIMPLIFY_KEY);
         progress = new ProgressDialog(this);
-        ShopCart shopCart = (ShopCart) getIntent().getSerializableExtra(SHOP_CART_ITEM);
+        shopCart = (ShopCart) getIntent().getSerializableExtra(SHOP_CART_ITEM);
         initUI();
     }
 

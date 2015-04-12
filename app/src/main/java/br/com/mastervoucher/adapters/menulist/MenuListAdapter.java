@@ -10,6 +10,7 @@ import java.util.List;
 
 public class MenuListAdapter extends ArrayAdapter<Item> {
     private LayoutInflater mInflater;
+    private List<Item> items;
 
     public enum RowType {
         LIST_ITEM, HEADER_ITEM
@@ -18,12 +19,17 @@ public class MenuListAdapter extends ArrayAdapter<Item> {
     public MenuListAdapter(Context context, List<Item> items) {
         super(context, 0, items);
         mInflater = LayoutInflater.from(context);
+        this.items = items;
     }
 
     @Override
     public int getViewTypeCount() {
         return RowType.values().length;
 
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     @Override

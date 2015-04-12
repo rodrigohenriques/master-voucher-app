@@ -20,6 +20,7 @@ import br.com.mastervoucher.adapters.menulist.MenuListAdapter;
 import br.com.mastervoucher.models.Event;
 import br.com.mastervoucher.models.Product;
 import br.com.mastervoucher.models.ShopCart;
+import br.com.mastervoucher.models.ShopCartItem;
 import br.com.mastervoucher.util.Extras;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,7 +32,7 @@ public class MenuActivity extends BaseActivity {
     ListView listView;
 
     Event event;
-    public ShopCart shopCart;
+    private MenuListAdapter menuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,8 @@ public class MenuActivity extends BaseActivity {
 
         List<Item> items = getListItens();
 
-        final MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
+
+        menuAdapter = new MenuListAdapter(this, items);
 
         listView.setAdapter(menuAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,6 +102,19 @@ public class MenuActivity extends BaseActivity {
     @OnClick(R.id.button_buy)
     public void paymentWithCard() {
         Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(PaymentActivity.SHOP_CART_ITEM,new ShopCart(getShopCartItems()) );
         startActivity(intent);
+    }
+
+    private List<ShopCartItem> getShopCartItems() {
+        List<ShopCartItem> shopCartItems = new ArrayList<ShopCartItem>();
+        for(Item item:menuAdapter.getItems()){
+            if ( item instanceof ListItem ) {
+
+                ListItem listItem = (ListItem) item;
+                shopCartItems.add(listItem.getShopCartItem());
+            }
+        }
+        return shopCartItems;
     }
 }

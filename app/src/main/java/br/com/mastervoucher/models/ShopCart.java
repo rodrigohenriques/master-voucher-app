@@ -7,12 +7,8 @@ import java.util.List;
 public class ShopCart implements Serializable {
     private List<ShopCartItem> shopCartItems;
 
-    public ShopCart() {
-        this.shopCartItems = new ArrayList<>();
-    }
-
-    public void addShopCardItem(ShopCartItem shopCartItem) {
-        shopCartItems.add(shopCartItem);
+    public ShopCart( List<ShopCartItem> shopCartItems) {
+        this.shopCartItems = shopCartItems;
     }
 
     public List<ShopCartItem> getShopCartItems() {
