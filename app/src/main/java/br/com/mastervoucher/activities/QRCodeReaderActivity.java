@@ -3,7 +3,6 @@ package br.com.mastervoucher.activities;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
@@ -11,7 +10,7 @@ import br.com.mastervoucher.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class QRCodeReaderActivity extends ActionBarActivity implements QRCodeReaderView.OnQRCodeReadListener {
+public class QRCodeReaderActivity extends BaseActivity implements QRCodeReaderView.OnQRCodeReadListener {
 
     public static final String RESULT_QRCODE_INFO = "qrcode_info";
 
