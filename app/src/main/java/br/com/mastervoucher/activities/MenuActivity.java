@@ -6,13 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.nirhart.parallaxscroll.views.ParallaxListView;
 
 import br.com.mastervoucher.R;
 import br.com.mastervoucher.adapters.menulist.Header;
@@ -30,7 +29,7 @@ import butterknife.OnClick;
 public class MenuActivity extends BaseActivity {
 
     @InjectView(R.id.listview)
-    ParallaxListView listView;
+    ListView listView;
 
     public ShopCart shopCart;
 
@@ -47,7 +46,6 @@ public class MenuActivity extends BaseActivity {
     }
 
     private void setupListViewContent() {
-<<<<<<< HEAD
         View headerView = LayoutInflater.from(this).inflate(
                 R.layout.header_view_event, null);
         ImageView logo = (ImageView) headerView.findViewById(R.id.image_event_logo);
@@ -55,13 +53,7 @@ public class MenuActivity extends BaseActivity {
         TextView textEventName = (TextView) headerView.findViewById(R.id.text_event_name);
         textEventName.setText("Tomorrowland 2015");
 
-        listView.addParallaxedHeaderView(headerView, null, false);
-
-        MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
-        listView.setAdapter(menuAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-=======
-        //MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
+        listView.addHeaderView(headerView, null, false);
 
         List<Item> items = new ArrayList<Item>();
         items.add(new Header("Header 1"));
@@ -74,10 +66,11 @@ public class MenuActivity extends BaseActivity {
         items.add(new ListItem(new ShopCartItem(new Product(), 5)));
         items.add(new ListItem(new ShopCartItem(new Product(), 8)));
 
-        MenuListAdapter adapter = new MenuListAdapter(this, items);
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
->>>>>>> 72041354f4edace67c8721b3fe9c4d04e66ef368
+        MenuListAdapter menuAdapter = new MenuListAdapter(this, items);
+
+//        MenuAdapter menuAdapter = new MenuAdapter(this, R.layout.adapter_menu, shopCart.getShopCartItems());
+        listView.setAdapter(menuAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
